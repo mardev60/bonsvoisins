@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model category {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(255)
+  description   String?
+  meal_category meal_category[]
+}
+
+model command {
+  id           Int       @id @default(autoincrement())
+  id_meal      Int
+  id_collector Int
+  collectedat  DateTime? @default(now()) @db.Timestamp(6)
+  user         user      @relation(fields: [id_collector], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_collector")
+  meal         meal      @relation(fields: [id_meal], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_meal")
+
+  @@index([id_collector], map: "idx_command_id_collector")
+  @@index([id_meal], map: "idx_command_id_meal")
+}
+
+model conversation {
+  id       Int       @id @default(autoincrement())
+  id_meal  Int
+  date_end DateTime? @db.Timestamp(6)
+  meal     meal      @relation(fields: [id_meal], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_meal")
+  message  message[]
+
+  @@index([id_meal], map: "idx_conversation_id_meal")
+}
+
+model meal {
+  id              Int             @id @default(autoincrement())
+  name            String          @db.VarChar(255)
+  description     String?
+  id_author       Int
+  collect_address String?         @db.VarChar(255)
+  collect_code    String?         @db.VarChar(50)
+  date_start      DateTime?       @db.Timestamp(6)
+  date_end        DateTime?       @db.Timestamp(6)
+  photo_url       String?         @db.VarChar(255)
+  createdat       DateTime?       @default(now()) @db.Timestamp(6)
+  updatedat       DateTime?       @default(now()) @db.Timestamp(6)
+  command         command[]
+  conversation    conversation[]
+  user            user            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_author")
+  meal_category   meal_category[]
+
+  @@index([id_author], map: "idx_meal_id_author")
+}
+
+model meal_category {
+  meal_id     Int
+  category_id Int
+  category    category @relation(fields: [category_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_category")
+  meal        meal     @relation(fields: [meal_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_meal")
+
+  @@id([meal_id, category_id])
+  @@index([category_id], map: "idx_meal_category_category_id")
+  @@index([meal_id], map: "idx_meal_category_meal_id")
+}
+
+model message {
+  id                             Int          @id @default(autoincrement())
+  id_sender                      Int
+  id_receiver                    Int
+  id_conversation                Int
+  content                        String
+  createdat                      DateTime?    @default(now()) @db.Timestamp(6)
+  updatedat                      DateTime?    @default(now()) @db.Timestamp(6)
+  conversation                   conversation @relation(fields: [id_conversation], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_conversation")
+  user_message_id_receiverTouser user         @relation("message_id_receiverTouser", fields: [id_receiver], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_receiver")
+  user_message_id_senderTouser   user         @relation("message_id_senderTouser", fields: [id_sender], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_sender")
+
+  @@index([id_conversation], map: "idx_message_id_conversation")
+  @@index([id_receiver], map: "idx_message_id_receiver")
+  @@index([id_sender], map: "idx_message_id_sender")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model user {
+  id                                Int       @id @default(autoincrement())
+  id_auth0                          String    @unique @db.VarChar(255)
+  last_name                         String    @db.VarChar(255)
+  first_name                        String    @db.VarChar(255)
+  phone                             String?   @db.VarChar(20)
+  command                           command[]
+  meal                              meal[]
+  message_message_id_receiverTouser message[] @relation("message_id_receiverTouser")
+  message_message_id_senderTouser   message[] @relation("message_id_senderTouser")
+
+  @@index([id_auth0], map: "idx_user_id_auth0")
+}
