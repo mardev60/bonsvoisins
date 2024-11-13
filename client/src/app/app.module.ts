@@ -1,4 +1,3 @@
-import * as dotenv from 'dotenv';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -8,8 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-
-dotenv.config();
 
 @NgModule({
   declarations: [

@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   exports: [],
   providers: [
     provideAuth0({
-      domain: process.env['AUTH0_DOMAIN'] || '',
-      clientId: process.env['AUTH0_CLIENT_ID'] || '',
+      domain: '',
+      clientId: '',
       authorizationParams : {
         redirect_uri: window.location.origin
       }
