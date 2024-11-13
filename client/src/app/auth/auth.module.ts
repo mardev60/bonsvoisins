@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { provideAuth0 } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment.development';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [],
   providers: [
     provideAuth0({
-      domain: process.env['AUTH0_DOMAIN'] || '',
-      clientId: process.env['AUTH0_CLIENT_ID'] || '',
-      authorizationParams : {
-        redirect_uri: window.location.origin
-      }
-    })
-  ]
+      domain: environment.auth.domain,
+      clientId: environment.auth.clientId,
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+      },
+    }),
+  ],
 })
 export class AuthModule {}

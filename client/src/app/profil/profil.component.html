@@ -1,0 +1,55 @@
+<div
+  class="profile-container max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-xl border border-gray-200"
+>
+  <!-- En-tête avec image de profil et titre -->
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center space-x-4">
+      <!-- Image de profil -->
+      <img
+        src="https://randomuser.me/api/portraits/men/10.jpg"
+        alt="Avatar de {{ user?.username }}"
+        class="w-20 h-20 rounded-full border-4 border-indigo-600 object-cover"
+      />
+      <div>
+        <h1 class="text-4xl font-semibold text-gray-800">
+          {{ user?.username }}
+        </h1>
+        <p class="text-gray-500 mt-1">{{ user?.email }}</p>
+      </div>
+    </div>
+    <!-- Bouton de modification -->
+    <div>
+      <button
+        class="bg-indigo-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-indigo-700 transition ease-in-out duration-300"
+      >
+        Modifier le Profil
+      </button>
+    </div>
+  </div>
+
+  <!-- Section bio -->
+  <div class="bio-section mt-6">
+    <h2 class="text-2xl font-semibold text-gray-800">Biographie</h2>
+    <p class="text-gray-600 mt-2">{{ user?.bio }}</p>
+  </div>
+
+  <!-- Section d'actions supplémentaires -->
+  <div class="mt-8 border-t border-gray-200 pt-6">
+    <h2 class="text-2xl font-semibold text-gray-800">
+      Actions supplémentaires
+    </h2>
+    <div class="flex items-center space-x-4 mt-4">
+      <!-- Exemple d'une action avec un bouton -->
+      <button
+        class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-300"
+      >
+        Ajouter aux favoris
+      </button>
+      <button
+        class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition duration-300"
+      >
+        Supprimer le Profil
+      </button>
+    </div>
+  </div>
+</div>

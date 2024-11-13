@@ -12,10 +12,20 @@ export class AuthService {
   }
 
   logout() {
-    this.auth.logout({logoutParams: {returnTo: window.location.origin}});
+    this.auth.logout({ logoutParams: { returnTo: window.location.origin } });
   }
 
-  signup(){
-    this.auth.loginWithRedirect({authorizationParams: {screen_hint: 'signup'}});
+  signup() {
+    this.auth.loginWithRedirect({
+      authorizationParams: { screen_hint: 'signup' },
+    });
+  }
+
+  getUserProfile() {
+    return {
+      username: 'JohnDoe',
+      email: 'johndoe@example.com',
+      bio: 'Développeur Angular passionné par la technologie.',
+    };
   }
 }
