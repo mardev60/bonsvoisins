@@ -1,0 +1,25 @@
+<div *ngIf="isLoading" class="flex items-center justify-center min-h-screen bg-white">
+  <div class="border-t-4 border-salmon border-solid w-20 h-20 rounded-full animate-spin"></div>
+</div>
+
+<div *ngIf="!isLoading" class="flex flex-col items-center justify-center min-h-screen bg-white px-4">
+  <div class="text-center max-w-2xl mx-auto">
+    <h1 class="text-3xl md:text-3xl lg:text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-lightSalmon to-darkSalmon">
+      Un repas préparé avec soin <br /> n'a jamais été aussi proche !
+    </h1>
+    <img
+      src="../../../assets/meal.png"
+      alt="Bowl de nourriture"
+      class="rounded-full w-64 md:w-80 lg:w-96 mx-auto mb-8 transform transition-transform duration-2000 hover:animate-shake"
+    />
+  </div>
+
+  <div class="flex flex-col gap-4 w-full max-w-xs md:max-w-sm lg:max-w-md text-center">
+    <button class="bg-salmon text-white py-3 rounded-full hover:bg-darkSalmon transition text-lg font-medium" (click)="authService.signup()">
+      S’inscrire
+    </button>
+    <a href="#" class="text-salmon hover:text-darkSalmon transition-all duration-300 text-lg font-semibold" (click)="authService.login()">
+      Se connecter
+    </a>
+  </div>
+</div>
