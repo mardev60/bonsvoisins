@@ -1,1 +1,5 @@
+<div *ngIf="isLoading" class="flex items-center justify-center min-h-screen bg-white">
+  <div class="border-t-4 border-salmon border-solid w-20 h-20 rounded-full animate-spin"></div>
+</div>
 <app-navbar (logout)="logout()"></app-navbar>
+<router-outlet />
