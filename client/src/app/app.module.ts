@@ -10,8 +10,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './services/interceptors/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FirstConnectionFormComponent } from './pages/dashboard/first-connection-form/first-connection-form.component';
-import { HomeComponent } from './pages/dashboard/home/home.component';
+import { FirstConnectionFormComponent } from './pages/first-connection-form/first-connection-form.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [

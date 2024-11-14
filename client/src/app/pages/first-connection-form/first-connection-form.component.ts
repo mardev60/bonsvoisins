@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../../../services/api.service';
+import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-first-connection-form',
-  templateUrl: './first-connection-form.component.html',
-  styleUrl: './first-connection-form.component.scss'
+  templateUrl: './first-connection-form.component.html'
 })
 
 export class FirstConnectionFormComponent {
