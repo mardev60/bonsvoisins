@@ -7,20 +7,37 @@ import { AuthModule } from './auth/auth.module';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/interceptors/auth.interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FirstConnectionFormComponent } from './pages/first-connection-form/first-connection-form.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    FirstConnectionFormComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: 
+  [
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

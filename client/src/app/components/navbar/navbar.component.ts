@@ -1,18 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
 
   @Output() logout = new EventEmitter<void>();
 
-  constructor() {}
+  constructor(private apiService : ApiService) {}
 
   logoutUser() {
     this.logout.emit();
+  }
+
+  async fetchUser() {
+    const user = await this.apiService.get<any>('').subscribe(user => {console.log(user)});
   }
 }
