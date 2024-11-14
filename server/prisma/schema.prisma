@@ -86,15 +86,34 @@ model message {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model user {
-  id                                Int       @id @default(autoincrement())
-  id_auth0                          String    @unique @db.VarChar(255)
-  last_name                         String    @db.VarChar(255)
-  first_name                        String    @db.VarChar(255)
-  phone                             String?   @db.VarChar(20)
+  id                                Int         @id @default(autoincrement())
+  id_auth0                          String      @unique @db.VarChar(255)
+  last_name                         String      @db.VarChar(255)
+  first_name                        String      @db.VarChar(255)
+  phone                             String?     @db.VarChar(20)
   command                           command[]
   meal                              meal[]
-  message_message_id_receiverTouser message[] @relation("message_id_receiverTouser")
-  message_message_id_senderTouser   message[] @relation("message_id_senderTouser")
+  message_message_id_receiverTouser message[]   @relation("message_id_receiverTouser")
+  message_message_id_senderTouser   message[]   @relation("message_id_senderTouser")
+  user_role                         user_role[]
 
   @@index([id_auth0], map: "idx_user_id_auth0")
+}
+
+model role {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique @db.VarChar(50)
+  description String?
+  user_role   user_role[]
+}
+
+model user_role {
+  user_id Int
+  role_id Int
+  role    role @relation(fields: [role_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_role")
+  user    user @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
+
+  @@id([user_id, role_id])
+  @@index([role_id], map: "idx_user_role_role_id")
+  @@index([user_id], map: "idx_user_role_user_id")
 }
