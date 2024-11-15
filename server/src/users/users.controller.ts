@@ -15,7 +15,6 @@ export class UsersController {
   @UseGuards(AuthorizationGuard)
   @Post('update-user-infos')
   async updateUserInfos(@Req() req): Promise<any> {
-    console.log(req.body);
     return await this.usersService.updateUserInfos(req.user, req.body);
   }
 }

@@ -9,9 +9,11 @@ import { Request, Response } from 'express';
 import { auth, InvalidTokenError, UnauthorizedError } from 'express-oauth2-jwt-bearer';
 import { promisify } from 'util';
 import axios from 'axios';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthorizationGuard implements CanActivate {
+  constructor(private readonly usersService: UsersService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     const response = context.switchToHttp().getResponse<Response>();
@@ -24,9 +26,15 @@ export class AuthorizationGuard implements CanActivate {
     try {
       await validateAccessToken(request, response);
       const userInfo = await this.getUserInfo(request.headers.authorization);
-      request.user = userInfo;
+      const userWithRoles = await this.usersService.getUserWithRoles(userInfo.sub);
+
+      request.user = {
+        ...userInfo,
+        roles: userWithRoles.roles,
+      };
 
       return true;
+      
     } catch (error) {
       if (error instanceof InvalidTokenError) {
         throw new UnauthorizedException('Bad credentials');
