@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
   isLoading = true;
@@ -15,20 +15,27 @@ export class DashboardComponent {
     phone: '',
   };
 
-  constructor(public authService: AuthService, private apiService : ApiService, private router : Router) {
+  constructor(
+    public authService: AuthService,
+    private apiService: ApiService,
+    private router: Router
+  ) {
     this.checkFirstTimeLogin();
   }
 
   checkFirstTimeLogin() {
-    this.apiService.post('users/check-first-time', {}).subscribe((isFirstTime) => {
-      this.isLoading = false;
-      if (isFirstTime) {
-        console.log(isFirstTime);
-        this.router.navigate(['dashboard', 'welcome']);
-      } else {
-        this.router.navigate(['dashboard', 'home']);
-      }
-    });
+    this.apiService
+      .post('users/check-first-time', {})
+      .subscribe((isFirstTime) => {
+        this.isLoading = false;
+        if (isFirstTime) {
+          console.log(isFirstTime);
+          // TODO bug refresh: if we refresh several times, this redirection creates a bug
+          this.router.navigate(['dashboard', 'welcome']);
+        } else {
+          this.router.navigate(['dashboard', 'home']);
+        }
+      });
   }
 
   logout() {
