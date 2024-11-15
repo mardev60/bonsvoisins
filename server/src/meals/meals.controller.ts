@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { MealsService } from './meals.service';
 import { AuthorizationGuard } from 'src/guards/authorization.guard';
 
@@ -8,7 +8,12 @@ export class MealsController {
   constructor(private mealsService: MealsService) {}
 
   @Get()
-  async getMeals(): Promise<any> {
-    return await this.mealsService.getMeals();
+  async getActiveMeals(): Promise<any> {
+    return await this.mealsService.getActiveMeals();
+  }
+
+  @Get('my-meals')
+  async getMyMeals(@Req() req): Promise<any> {
+    return await this.mealsService.getAllMyMeals(req.user);
   }
 }

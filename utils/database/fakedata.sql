@@ -39,16 +39,16 @@ INSERT INTO category (name, description) VALUES
 
 -- Table : meal
 INSERT INTO meal (name, description, id_author, collect_address, collect_code, date_start, date_end, photo_url) VALUES
-('Salade Vegan', 'Salade avec légumes frais et sauce au yaourt', 2, '5 rue de Paris', 'code1', '2024-11-20 12:00:00', '2024-11-20 14:00:00', 'https://example.com/salade_vegan.jpg'),
-('Burger Végétarien', 'Burger avec galette de légumes et sauce maison', 2, '10 avenue de la Liberté', 'code2', '2024-11-21 12:00:00', '2024-11-21 14:00:00', 'https://example.com/burger_vegetarien.jpg'),
-('Poulet rôti', 'Poulet rôti avec légumes grillés', 3, '15 boulevard St Michel', 'code3', '2024-11-22 12:00:00', '2024-11-22 14:00:00', 'https://example.com/poulet_roti.jpg'),
-('Quiche Lorraine', 'Quiche avec jambon, fromage et pâte feuilletée', 4, '20 rue de la République', 'code4', '2024-11-23 12:00:00', '2024-11-23 14:00:00', 'https://example.com/quiche_lorraine.jpg'),
-('Soupe de potimarron', 'Soupe chaude à base de potimarron', 5, '25 rue des Martyrs', 'code5', '2024-11-24 12:00:00', '2024-11-24 14:00:00', 'https://example.com/soupe_potimarron.jpg'),
-('Pizza Margherita', 'Pizza classique avec tomates, mozzarella et basilic', 6, '30 avenue de la Gare', 'code6', '2024-11-25 12:00:00', '2024-11-25 14:00:00', 'https://example.com/pizza_margherita.jpg'),
-('Lasagne', 'Lasagne avec sauce bolognaise et fromage gratiné', 7, '35 rue des Champs', 'code7', '2024-11-26 12:00:00', '2024-11-26 14:00:00', 'https://example.com/lasagne.jpg'),
-('Tarte aux pommes', 'Tarte sucrée aux pommes et caramel', 8, '40 rue de la Croix', 'code8', '2024-11-27 12:00:00', '2024-11-27 14:00:00', 'https://example.com/tarte_aux_pommes.jpg'),
-('Moussaka', 'Moussaka avec viande dagneau et aubergines', 9, '45 rue de la Paix', 'code9', '2024-11-28 12:00:00', '2024-11-28 14:00:00', 'https://example.com/moussaka.jpg'),
-('Tiramisu', 'Dessert italien à base de mascarpone et cacao', 10, '50 rue des Lilas', 'code10', '2024-11-29 12:00:00', '2024-11-29 14:00:00', 'https://example.com/tiramisu.jpg');
+('Salade Vegan', 'Salade avec légumes frais et sauce au yaourt', 2, '5 rue de Paris', 'code1', '2024-11-02 12:00:00', '2025-11-20 14:00:00', 'https://example.com/salade_vegan.jpg'),
+('Burger Végétarien', 'Burger avec galette de légumes et sauce maison', 2, '10 avenue de la Liberté', 'code2', '2024-11-02 12:00:00', '2025-11-21 14:00:00', 'https://example.com/burger_vegetarien.jpg'),
+('Poulet rôti', 'Poulet rôti avec légumes grillés', 3, '15 boulevard St Michel', 'code3', '2024-11-02 12:00:00', '2025-11-22 14:00:00', 'https://example.com/poulet_roti.jpg'),
+('Quiche Lorraine', 'Quiche avec jambon, fromage et pâte feuilletée', 4, '20 rue de la République', 'code4', '2024-11-02 12:00:00', '2025-11-23 14:00:00', 'https://example.com/quiche_lorraine.jpg'),
+('Soupe de potimarron', 'Soupe chaude à base de potimarron', 5, '25 rue des Martyrs', 'code5', '2024-11-02 12:00:00', '2025-11-24 14:00:00', 'https://example.com/soupe_potimarron.jpg'),
+('Pizza Margherita', 'Pizza classique avec tomates, mozzarella et basilic', 6, '30 avenue de la Gare', 'code6', '2024-11-02 12:00:00', '2025-11-25 14:00:00', 'https://example.com/pizza_margherita.jpg'),
+('Lasagne', 'Lasagne avec sauce bolognaise et fromage gratiné', 7, '35 rue des Champs', 'code7', '2024-11-02 12:00:00', '2025-11-26 14:00:00', 'https://example.com/lasagne.jpg'),
+('Tarte aux pommes', 'Tarte sucrée aux pommes et caramel', 8, '40 rue de la Croix', 'code8', '2024-11-02 12:00:00', '2025-11-27 14:00:00', 'https://example.com/tarte_aux_pommes.jpg'),
+('Moussaka', 'Moussaka avec viande dagneau et aubergines', 9, '45 rue de la Paix', 'code9', '2024-11-02 12:00:00', '2025-11-28 14:00:00', 'https://example.com/moussaka.jpg'),
+('Tiramisu', 'Dessert italien à base de mascarpone et cacao', 10, '50 rue des Lilas', 'code10', '2024-11-02 12:00:00', '2025-11-29 14:00:00', 'https://example.com/tiramisu.jpg');
 
 -- Table : meal_category
 INSERT INTO meal_category (meal_id, category_id) VALUES

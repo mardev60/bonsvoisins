@@ -1,10 +1,35 @@
-<div *ngIf="meals.length; else noMeals">
-  <h2>Liste des repas</h2>
-  <ul>
-    <li *ngFor="let meal of meals">{{ meal.name }}</li>
-  </ul>
-</div>
+<div
+  class="home-container min-h-screen flex justify-center bg-gradient-to-r from-blue-500 to-teal-500"
+>
+  <div class="content p-6 w-full bg-white rounded-lg shadow-lg">
+    <!-- Section Derniers Repas -->
+    <div class="last-meals mt-10">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Derniers Repas</h2>
 
-<ng-template #noMeals>
-  <p>Aucun repas disponible.</p>
-</ng-template>
+      <!-- Liste des repas avec défilement horizontal -->
+      <div class="meals-list overflow-x-scroll max-w-full flex space-x-4 py-4">
+        <ng-container *ngFor="let meal of meals">
+          <div
+            class="meal-item flex-shrink-0 w-96 p-4 bg-gray-100 rounded-lg shadow-md"
+          >
+            <img
+              src="../../../assets/meal2.png"
+              [alt]="meal.name"
+              class="w-full h-32 object-cover rounded-lg mb-4"
+            />
+            <div class="meal-info">
+              <h3 class="text-lg font-semibold text-gray-800">
+                {{ meal.name }}
+              </h3>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <style>
+      .meals-list::-webkit-scrollbar {
+        display: none; /* Masque la barre de défilement sur Chrome, Safari, Edge */
+      }
+    </style>
+  </div>
+</div>
