@@ -2,11 +2,9 @@
   class="home-container min-h-screen flex justify-center bg-gradient-to-r from-blue-500 to-teal-500"
 >
   <div class="content p-6 w-full bg-white rounded-lg shadow-lg">
-    <!-- Section Derniers Repas -->
     <div class="last-meals mt-10">
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">Derniers Repas</h2>
 
-      <!-- Liste des repas avec défilement horizontal -->
       <div class="meals-list overflow-x-scroll max-w-full flex space-x-4 py-4">
         <ng-container *ngFor="let meal of meals">
           <div
@@ -28,7 +26,7 @@
     </div>
     <style>
       .meals-list::-webkit-scrollbar {
-        display: none; /* Masque la barre de défilement sur Chrome, Safari, Edge */
+        display: none; /* Hides the scrollbar on Chrome, Safari, Edge */
       }
     </style>
   </div>

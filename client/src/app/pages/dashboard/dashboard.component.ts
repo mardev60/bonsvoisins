@@ -30,8 +30,8 @@ export class DashboardComponent {
         this.isLoading = false;
         if (isFirstTime) {
           console.log(isFirstTime);
-          // TODO: si on actualise plusieurs fois, cette redirection crée un bug
-          // this.router.navigate(['dashboard', 'welcome']);
+          // TODO bug refresh: if we refresh several times, this redirection creates a bug
+          this.router.navigate(['dashboard', 'welcome']);
         } else {
           this.router.navigate(['dashboard', 'home']);
         }
