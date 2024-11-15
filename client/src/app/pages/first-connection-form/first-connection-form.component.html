@@ -56,11 +56,11 @@
       <div class="flex justify-end">
         <button
           type="submit"
-          [disabled]="userForm.invalid || isLoading"
+          [disabled]="userForm.invalid || isFormLoading"
           class="bg-salmon text-white px-2 py-1 rounded-md hover:bg-darkSalmon text-m flex items-center justify-center"
         >
-          <span *ngIf="!isLoading">Soumettre</span>
-          <span *ngIf="isLoading" class="flex justify-center items-center">
+          <span *ngIf="!isFormLoading">Soumettre</span>
+          <span *ngIf="isFormLoading" class="flex justify-center items-center">
             <svg
               aria-hidden="true"
               class="w-6 h-6 text-white animate-spin"

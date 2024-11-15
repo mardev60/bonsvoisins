@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../core/services/api.service';
 
 @Component({
   selector: 'app-navbar',
