@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Put, Req, UseGuards, BadRequestException } from "@nestjs/common";
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Post, Put, Req, UseGuards, BadRequestException, Param } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuthorizationGuard } from "src/guards/authorization.guard";
 import { Roles } from "src/guards/roles.decorator";
 import { RolesGuard } from "src/guards/roles.guard";
 import { CommandsService } from "./commands.service";
 
-@ApiTags('commands')
+@ApiTags('Commands')
 @ApiBearerAuth()
 @Controller('commands')
 export class CommandsController {
@@ -17,9 +17,10 @@ export class CommandsController {
   @ApiOperation({ summary: 'Créer une commande' })
   @ApiResponse({ status: 201, description: 'Commande créée avec succès.' })
   @ApiResponse({ status: 400, description: 'Les données fournies ne sont pas conformes.' })
-  async createCommand(@Req() req): Promise<any> {
+  @ApiParam({ name: 'mealId', required: true, description: 'ID du repas à commander' })
+  async createCommand(@Req() req, @Param('mealId') mealId: number): Promise<any> {
     try {
-      return await this.commandsService.createCommand(req.params.mealId, req.user.id);
+      return await this.commandsService.createCommand(mealId, req.user.id);
     } catch (error) {
       throw new BadRequestException(error.message);
     }

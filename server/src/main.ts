@@ -9,6 +9,7 @@ async function bootstrap() {
     .setTitle('BonsVoisins API')
     .setDescription("L'API de BonsVoisins pour la proposition des repas.")
     .setVersion('beta')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
