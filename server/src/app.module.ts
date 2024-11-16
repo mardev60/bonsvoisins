@@ -4,13 +4,15 @@ import { UsersModule } from './users/users.module';
 import { PrismaService } from './prisma.service';
 import { MealsModule } from './meals/meals.module';
 import { CommandsModule } from './commands/commands.module';
+import { GeoLocalisationModule } from './geo-localisation/geo-localisation.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(), 
     UsersModule, 
     MealsModule,
-    CommandsModule
+    CommandsModule,
+    GeoLocalisationModule
   ],
   controllers: [],
   providers: [PrismaService],
