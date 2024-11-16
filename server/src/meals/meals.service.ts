@@ -132,15 +132,4 @@ export class MealsService {
       data,
     });
   }
-
-  async desactivateMeal(id: number): Promise<meal> {
-    return await this.prisma.meal.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        is_active: false,
-      },
-    })
-  }
 }

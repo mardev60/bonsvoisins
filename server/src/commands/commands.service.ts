@@ -35,7 +35,15 @@ export class CommandsService {
       },
     });
 
-    await this.mealService.desactivateMeal(mealId);
+    // TODO: Appeler le service mealService pour desactiver le repas (lorsque la fonctionnalité sera implémentée).
+    await this.prisma.meal.update({
+      where: {
+        id: Number(mealId),
+      }, 
+      data: {
+        is_active: false,
+      },
+    });
 
     return this.prisma.command.create({
       data: {
@@ -70,7 +78,7 @@ export class CommandsService {
       },
     });
 
-    if (!userId || !commandToCollect) {
+    if (!userId || !commandToCollect || !commandToCollect.meal.is_active) {
       throw new BadRequestException('Les données ne sont pas conformes pour collecter une commande.');
     }
 
