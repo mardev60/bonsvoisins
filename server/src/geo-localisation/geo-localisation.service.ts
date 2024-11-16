@@ -33,6 +33,29 @@ export class GeoLocalisationService {
   }
 
   /**
+   * Recherche des adresses correspondant à une requête donnée en interrogeant l'API du gouvernement.
+   * Cette méthode effectue une recherche en envoyant une requête HTTP à l'API `api-adresse.data.gouv.fr` 
+   * pour récupérer une liste d'adresses correspondant au critère de recherche (par exemple, un nom de rue ou une ville).
+   * 
+   * @param {string} query La chaîne de recherche contenant des informations sur l'adresse (ex. : "10 rue de Paris").
+   * @returns {Promise<any>} Une liste d'adresses correspondant à la recherche. Chaque adresse contient des informations comme le nom de la rue, la ville, et le code postal.
+   * @throws {Error} Lève une exception si la requête à l'API échoue ou si aucune adresse n'est trouvée pour la recherche donnée.
+   */
+  async searchAddress(query: string): Promise<any> {
+    const url = `https://api-adresse.data.gouv.fr/search/?q=${query}&limit=5`;
+
+    try {
+      const response: AxiosResponse = await this.httpService.get(url).toPromise();
+      if (response.data.features.length === 0) {
+        throw new Error('Aucune adresse trouvée pour la requête donnée');
+      }
+      return response.data.features.map((feature) => feature.properties);
+    } catch (error) {
+      throw new Error('Erreur lors de la recherche d\'adresse');
+    }
+  }
+
+  /**
    * Récupère les informations de l'IP de l'utilisateur à partir de l'API ipinfo.io.
    * L'IP peut être utilisée pour obtenir la localisation géographique.
    * 
