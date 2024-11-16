@@ -46,6 +46,7 @@ model meal {
   collect_code    String?         @db.VarChar(50)
   date_start      DateTime?       @db.Timestamp(6)
   date_end        DateTime?       @db.Timestamp(6)
+  is_active        Boolean         @default(true)
   photo_url       String?         @db.VarChar(255)
   createdat       DateTime?       @default(now()) @db.Timestamp(6)
   updatedat       DateTime?       @default(now()) @db.Timestamp(6)

@@ -35,6 +35,8 @@ export class CommandsService {
       },
     });
 
+    await this.mealService.desactivateMeal(mealId);
+
     return this.prisma.command.create({
       data: {
         id_collector: Number(userId),
