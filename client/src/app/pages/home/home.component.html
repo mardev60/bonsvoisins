@@ -20,9 +20,33 @@
                 {{ meal.name }}
               </h3>
             </div>
+
+            <!-- Boutons pour modifier et supprimer -->
+            <div class="meal-actions mt-4 flex justify-between">
+              <button
+                (click)="updateMeal(meal.id)"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded"
+              >
+                Modifier
+              </button>
+              <button
+                (click)="deleteMeal(meal.id)"
+                class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
+              >
+                Supprimer
+              </button>
+            </div>
           </div>
         </ng-container>
       </div>
+
+      <!-- Bouton pour créer un repas random associé à l'utilisateur en cours -->
+      <button
+        (click)="createMeal()"
+        class="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Créer un repas
+      </button>
     </div>
     <style>
       .meals-list::-webkit-scrollbar {

@@ -22,7 +22,7 @@ export class MealsController {
   @Roles('user')
   @Post()
   async createMeal(@Req() req): Promise<any> {
-    return await this.mealsService.createMeal(req.body);
+    return await this.mealsService.createMeal(req.body, req.user.id);
   }
 
   @UseGuards(RolesGuard)
@@ -44,6 +44,27 @@ export class MealsController {
   @Get('inactive')
   async getInactiveMeals(): Promise<any> {
     return await this.mealsService.getInactiveMeals();
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('user')
+  @Get('my')
+  async getMyMeals(@Req() req): Promise<any> {
+    return await this.mealsService.getMealsByUser(req.user.id);
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('user')
+  @Get('my-active')
+  async getMyActiveMeals(@Req() req): Promise<any> {
+    return await this.mealsService.getActiveMealsByUser(req.user.id);
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles('user')
+  @Get('my-inactive')
+  async getMyInactiveMeals(@Req() req): Promise<any> {
+    return await this.mealsService.getInactiveMealsByUser(req.user.id);
   }
 
   @UseGuards(RolesGuard)
@@ -77,14 +98,14 @@ export class MealsController {
   @UseGuards(RolesGuard)
   @Roles('user')
   @Delete(':id')
-  async deleteMeal(@Param('id') id: number): Promise<any> {
-    return await this.mealsService.deleteMeal(id);
+  async deleteMeal(@Req() req, @Param('id') id: number): Promise<any> {
+    return await this.mealsService.deleteMeal(id, req.user.id);
   }
 
   @UseGuards(RolesGuard)
   @Roles('user')
   @Put(':id')
   async updateMeal(@Param('id') id: number, @Req() req): Promise<any> {
-    return await this.mealsService.updateMeal(id, req.body);
+    return await this.mealsService.updateMeal(id, req.user.id, req.body);
   }
 }
