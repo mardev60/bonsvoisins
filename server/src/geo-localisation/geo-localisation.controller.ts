@@ -1,4 +1,4 @@
-import { Controller, Get, HttpException, HttpStatus, UseGuards } from "@nestjs/common";
+import { BadRequestException, Controller, Get, HttpException, HttpStatus, Query, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags, ApiResponse } from "@nestjs/swagger";
 import { GeoLocalisationService } from "./geo-localisation.service";
 import { AuthorizationGuard } from "src/guards/authorization.guard";
@@ -7,11 +7,11 @@ import { Roles } from "src/guards/roles.decorator";
 
 @ApiTags('Localisation')
 @ApiBearerAuth()
-@Controller('localisation')
+@Controller('geo-localisation')
 export class GeoLocalisationController {
   constructor(private readonly geolocalisationService: GeoLocalisationService) {}
 
-  @Get('geolocation')
+  @Get()
   @UseGuards(AuthorizationGuard, RolesGuard)
   @Roles('user')
   @ApiResponse({
@@ -35,6 +35,26 @@ export class GeoLocalisationController {
         },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  @Get('search')
+  @ApiResponse({
+    status: 200,
+    description: 'Liste des adresses trouvées'
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Erreur lors de la recherche d\'adresse'
+  })
+  async searchAddress(@Query('query') query: string) {
+    if (!query) {
+      throw new BadRequestException('Le paramètre "query" est requis');
+    }
+    try {
+      return await this.geolocalisationService.searchAddress(query);
+    } catch (error) {
+      throw new BadRequestException('Erreur lors de la recherche d\'adresse');
     }
   }
 }
