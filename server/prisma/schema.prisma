@@ -18,7 +18,8 @@ model command {
   id           Int       @id @default(autoincrement())
   id_meal      Int
   id_collector Int
-  collectedat  DateTime? @default(now()) @db.Timestamp(6)
+  createdAt    DateTime? @default(now()) @db.Timestamp(6)
+  collectedat  DateTime? @db.Timestamp(6)
   user         user      @relation(fields: [id_collector], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_collector")
   meal         meal      @relation(fields: [id_meal], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_meal")
 
@@ -88,8 +89,8 @@ model message {
 model user {
   id                                Int         @id @default(autoincrement())
   id_auth0                          String      @unique @db.VarChar(255)
-  last_name                         String?      @db.VarChar(255)
-  first_name                        String?      @db.VarChar(255)
+  last_name                         String?     @db.VarChar(255)
+  first_name                        String?     @db.VarChar(255)
   phone                             String?     @db.VarChar(20)
   command                           command[]
   meal                              meal[]
