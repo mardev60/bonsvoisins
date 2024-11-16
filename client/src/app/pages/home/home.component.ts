@@ -13,8 +13,8 @@ export class HomeComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.fetchMeals();
-    this.fetchMealsByUser();
+    //this.fetchMeals();
+    //this.fetchMealsByUser();
   }
 
   fetchMeals(): void {
