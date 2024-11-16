@@ -39,6 +39,8 @@ export class GeoLocalisationController {
   }
 
   @Get('search')
+  @UseGuards(AuthorizationGuard, RolesGuard)
+  @Roles('user')
   @ApiResponse({
     status: 200,
     description: 'Liste des adresses trouvées'
