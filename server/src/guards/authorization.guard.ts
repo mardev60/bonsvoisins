@@ -6,7 +6,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { auth, InvalidTokenError, UnauthorizedError } from 'express-oauth2-jwt-bearer';
+import {
+  auth,
+  InvalidTokenError,
+  UnauthorizedError,
+} from 'express-oauth2-jwt-bearer';
 import { promisify } from 'util';
 import axios from 'axios';
 import { UsersService } from 'src/users/users.service';
@@ -29,6 +33,7 @@ export class AuthorizationGuard implements CanActivate {
       const userWithRoles = await this.usersService.getUserWithRoles(userInfo.sub);
 
       request.user = {
+        id: userWithRoles.id,
         ...userInfo,
         roles: userWithRoles.roles,
       };

@@ -49,4 +49,62 @@ export class HomeComponent implements OnInit {
       },
     });
   }
+
+  createMeal(): void {
+    const now = new Date();
+
+    // Utilisation de la date actuelle pour que le repas soit actif
+    const date_start = new Date(now.getTime() - 60 * 60 * 1000); // Retrait d'une heure
+    const date_end = new Date(date_start.getTime() + 3 * 60 * 60 * 1000); // Ajout de 2 heures
+
+    const randomCode = Math.random().toString(36).substring(2, 8);
+
+    const mealData = {
+      name: 'Repas test ' + randomCode,
+      date_start,
+      date_end,
+      description: 'Description du repas test',
+    };
+
+    console.log('Données envoyées pour créer un repas :', mealData);
+
+    this.apiService.post<Meal>('meals', mealData).subscribe({
+      next: (data) => {
+        console.log('Repas créé avec succès :', data);
+        this.fetchMeals();
+      },
+      error: (error) => {
+        console.error('Erreur lors de la création du repas :', error);
+      },
+    });
+  }
+
+  updateMeal(id: number): void {
+    const mealData = {
+      name: 'Repas test 2 (modifié)',
+      description: 'Description du repas test (modifiée)',
+    };
+
+    this.apiService.put<Meal>(`meals/${id}`, mealData).subscribe({
+      next: (data) => {
+        console.log('Repas mis à jour avec succès :', data);
+        this.fetchMeals();
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour du repas :', error);
+      },
+    });
+  }
+
+  deleteMeal(id: number): void {
+    this.apiService.delete(`meals/${id}`).subscribe({
+      next: () => {
+        console.log('Repas supprimé avec succès');
+        this.fetchMeals();
+      },
+      error: (error) => {
+        console.error('Erreur lors de la suppression du repas :', error);
+      },
+    });
+  }
 }

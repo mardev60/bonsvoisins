@@ -7,11 +7,16 @@ import { generateRandomCode } from 'src/utils/generate-random-code';
 export class MealsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createMeal(data: any): Promise<meal> {
+  async createMeal(data: any, userId: number): Promise<meal> {
+    if (!userId) {
+      throw new Error('User ID is required to create a meal');
+    }
+
     return await this.prisma.meal.create({
       data: {
         ...data,
         collect_code: generateRandomCode(),
+        id_author: Number(userId),
       },
     });
   }
@@ -109,15 +114,21 @@ export class MealsService {
     });
   }
 
-  async deleteMeal(id: number): Promise<meal> {
+  async deleteMeal(id: number, userId: number): Promise<meal> {
     return await this.prisma.meal.delete({
-      where: { id: Number(id) },
+      where: {
+        id: Number(id),
+        id_author: Number(userId),
+      },
     });
   }
 
-  async updateMeal(id: number, data: any): Promise<meal> {
+  async updateMeal(id: number, userId: number, data: any): Promise<meal> {
     return await this.prisma.meal.update({
-      where: { id: Number(id) },
+      where: {
+        id: Number(id),
+        id_author: Number(userId),
+      },
       data,
     });
   }
