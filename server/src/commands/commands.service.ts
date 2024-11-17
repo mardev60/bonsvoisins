@@ -38,7 +38,7 @@ export class CommandsService {
     const disabledMeal = await this.mealService.disableMeal(mealId);
 
     if (!disabledMeal.success) {
-      throw new BadRequestException('Le repas n\'a pas pu être désactivé.');
+      throw new BadRequestException('The meal could not be disabled.');
     }
 
     return this.prisma.command.create({
