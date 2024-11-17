@@ -6,11 +6,11 @@
           <svg class="w-4 h-4 text-salmon mr-1" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" transform="rotate(-60)">
             <path d="M3 2L22 12L3 22L8 12L3 2Z" />
           </svg>
-          <span class="text-sm text-darkSalmon">{{ currentLocation }}</span>
+          <span class="text-sm text-darkSalmon font-bold">{{ currentLocation }}</span>
         </div>
         <div class="flex items-center">
           <span class="w-4 h-4 mr-1"></span>
-          <span class="text-xs text-gray-500">Repas à moins de {{distance}} km</span>
+          <span class="text-xs text-gray-500 font-extralight">Repas à moins de {{distance}} km</span>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
           class="w-full p-2 mb-2 bg-gray-100 text-gray-800 rounded-lg text-sm focus:outline-none focus:ring focus:ring-orange-400"
           placeholder="Saisissez une adresse"
         />
-        <ul *ngIf="addressSuggestions.length > 0" class="bg-white border border-gray-300 rounded-lg shadow-md max-h-40 overflow-y-auto mb-2">
+        <ul *ngIf="addressSuggestions && addressSuggestions.length > 0" class="bg-white border border-gray-300 rounded-lg shadow-md max-h-40 overflow-y-auto mb-2">
           <li 
             *ngFor="let suggestion of addressSuggestions" 
             (click)="selectAddress(suggestion)"
@@ -35,9 +35,9 @@
           >
             {{ suggestion }}
           </li>
-        </ul>
+        </ul>        
         
-        <button (click)="saveLocation()" class="w-full px-3 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500 transition">
+        <button (click)="saveLocation()" class="w-full px-3 py-2 bg-salmon text-white rounded-lg hover:bg-darkSalmon transition">
           Utiliser cette adresse
         </button>
         <p class="text-center text-gray-500 mt-2">ou</p>

@@ -37,26 +37,4 @@ export class GeoLocalisationController {
       );
     }
   }
-
-  @Get('search')
-  @UseGuards(AuthorizationGuard, RolesGuard)
-  @Roles('user')
-  @ApiResponse({
-    status: 200,
-    description: 'Liste des adresses trouvées'
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Erreur lors de la recherche d\'adresse'
-  })
-  async searchAddress(@Query('query') query: string) {
-    if (!query) {
-      throw new BadRequestException('Le paramètre "query" est requis');
-    }
-    try {
-      return await this.geolocalisationService.searchAddress(query);
-    } catch (error) {
-      throw new BadRequestException('Erreur lors de la recherche d\'adresse');
-    }
-  }
 }

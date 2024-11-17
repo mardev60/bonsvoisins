@@ -14,15 +14,7 @@ export class LocationSelectorComponent implements OnInit {
   constructor(private geoLocalisationService : GeoLocalisationService) {}
 
   ngOnInit() {
-    this.geoLocalisationService.getGeolocalisation().subscribe(
-      (response : any) => {
-      this.currentLocation = `${response.street}, ${response.city}`;
-
-      (error : any) => {
-        console.error(error);
-        this.currentLocation = 'Impossible de récupérer votre position';
-      }
-    });
+    this.useGeolocation();
   }
   
   toggleEdit() {
@@ -34,17 +26,37 @@ export class LocationSelectorComponent implements OnInit {
   }
   
   useGeolocation() {
-    this.currentLocation = 'Géolocalisation activée';
     this.isEditing = false;
+    this.geoLocalisationService.getGeolocalisation().subscribe(
+      (response : any) => {
+      this.currentLocation = `${response.street}, ${response.city}`;
+
+      (error : any) => {
+        console.error(error);
+        this.currentLocation = 'Impossible de récupérer votre position';
+      }
+    });
   }
   
   fetchAddressSuggestions() {
-    this.addressSuggestions = [
-      '123 Rue de Paris, Ivry-sur-Seine',
-      '456 Avenue de la République, Paris',
-      '789 Boulevard Saint-Michel, Paris'
-    ];
+    if (this.currentLocation.length > 3) {
+      this.geoLocalisationService.searchAdresses(this.currentLocation).subscribe(
+        (response: any) => {
+          console.log(response.features);
+          if (response && response.features) {
+            this.addressSuggestions = response.features.map((adress: any) => adress.properties.name + ', ' + adress.properties.city + ' (' + adress.properties.postcode + ')');
+          }
+        },
+        (error: any) => {
+          console.error(error);
+          this.addressSuggestions = [];
+        }
+      );
+    } else {
+      this.addressSuggestions = [];
+    }
   }
+  
   
   selectAddress(suggestion: string) {
     this.currentLocation = suggestion;
