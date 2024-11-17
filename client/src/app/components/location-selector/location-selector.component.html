@@ -10,54 +10,69 @@
         </div>
         <div class="flex items-center">
           <span class="w-4 h-4 mr-1"></span>
-          <span class="text-xs text-gray-500 font-extralight">Repas à moins de {{distance}} km</span>
+          <span class="text-xs text-gray-500 font-extralight">Repas à moins de {{ distance }} km</span>
         </div>
       </div>
     </div>
   </div>
-  
-    <div *ngIf="isEditing" class="fixed inset-0 flex justify-center items-center z-50">
-      <div class="absolute inset-0 bg-black bg-opacity-50" (click)="toggleEdit()"></div>
-      <div class="relative p-4 bg-white border border-gray-300 rounded-lg shadow-lg w-11/12 max-w-md mx-auto z-50">
-        <h3 class="text-gray-700 font-semibold mb-2">Modifier l'adresse</h3>
-        <input 
-          type="text" 
-          [(ngModel)]="currentLocation" 
-          (input)="fetchAddressSuggestions()"
-          class="w-full p-2 mb-2 bg-gray-100 text-gray-800 rounded-lg text-sm focus:outline-none focus:ring focus:ring-orange-400"
-          placeholder="Saisissez une adresse"
-        />
-        <ul *ngIf="addressSuggestions && addressSuggestions.length > 0" class="bg-white border border-gray-300 rounded-lg shadow-md max-h-40 overflow-y-auto mb-2">
-          <li 
-            *ngFor="let suggestion of addressSuggestions" 
-            (click)="selectAddress(suggestion)"
-            class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm"
-          >
-            {{ suggestion }}
-          </li>
-        </ul>        
-        
-        <button (click)="saveLocation()" class="w-full px-3 py-2 bg-salmon text-white rounded-lg hover:bg-darkSalmon transition">
-          Utiliser cette adresse
-        </button>
-        <p class="text-center text-gray-500 mt-2">ou</p>
-        <button (click)="useGeolocation()" class="w-full px-3 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition">
+
+  <div *ngIf="isEditing" class="fixed inset-0 flex justify-center items-center z-50">
+    <div class="absolute inset-0 bg-black bg-opacity-50" (click)="toggleEdit()"></div>
+    <div class="relative p-4 bg-white border border-gray-300 rounded-lg shadow-lg w-11/12 max-w-md mx-auto z-50">
+      <h3 class="text-gray-700 font-semibold mb-2">Modifier l'adresse</h3>
+      <input 
+        type="text" 
+        [(ngModel)]="selectedLocation" 
+        (input)="fetchAddressSuggestions()"
+        class="w-full p-2 mb-2 bg-gray-100 text-gray-800 rounded-lg text-sm focus:outline-none focus:ring focus:ring-orange-400 disabled:opacity-50"
+        [disabled]="isLocationLoading"
+        placeholder="{{ currentLocation }}"
+      />
+      <ul *ngIf="addressSuggestions && addressSuggestions.length > 0" class="bg-white border border-gray-300 rounded-lg shadow-md max-h-40 overflow-y-auto mb-2">
+        <li 
+          *ngFor="let suggestion of addressSuggestions" 
+          (click)="selectAddress(suggestion)"
+          class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm transition-colors"
+        >
+          {{ suggestion }}
+        </li>
+      </ul>        
+      
+      <button 
+        (click)="saveLocation()" 
+        class="w-full px-3 py-2 bg-salmon text-white rounded-lg hover:bg-darkSalmon transition disabled:opacity-50" 
+        [disabled]="isLocationLoading">
+        Utiliser cette adresse
+      </button>
+      <p class="text-center text-gray-500 mt-2 mb-2">ou</p>
+      <button 
+        (click)="useGeolocation()" 
+        class="w-full px-3 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition flex items-center justify-center disabled:opacity-50"
+        [disabled]="isLocationLoading">
+        <span *ngIf="!isLocationLoading">
           Utiliser ma géolocalisation
-        </button>
-  
-        <div class="mt-4">
-          <label for="distance-slider" class="text-gray-700 text-sm">Voir les repas dans un rayon de {{ distance }} km</label>
+        </span>
+        <span *ngIf="isLocationLoading" class="flex justify-center items-center">
+          Chargement...
+        </span>
+      </button>
+
+      <div class="mt-4">
+        <label for="distance-slider" class="text-gray-700 text-sm">Voir les repas dans un rayon de {{ distance }} km</label>
+        <div class="relative w-full mt-2">
           <input 
             id="distance-slider" 
             type="range" 
-            min="0" 
+            min="1" 
             max="5" 
             step="0.5" 
-            [(ngModel)]="distance" 
-            class="w-full mt-2 appearance-none h-2 bg-orange-200 rounded-lg focus:outline-none focus:ring focus:ring-orange-400"
+            [(ngModel)]="distance"
+            class="w-full appearance-none h-2 rounded-lg overflow-hidden"
+            [style.background]="'linear-gradient(to right, #AF664E 0%, #CD7E65 ' + ((distance - 1) * 25) + '%, #CD7E65 ' + ((distance - 1) * 25) + '%, #F4A68D 100%)'"
           />
         </div>
       </div>
+      
     </div>
   </div>
-  
+</div>

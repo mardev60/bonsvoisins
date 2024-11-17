@@ -13,7 +13,7 @@ export class GeoLocalisationService {
     return this.apiService.get('geo-localisation');
   }
 
-  searchAdresses(query : string): Observable<boolean> {
+  searchAdresses(query : string): Observable<any> {
     return this.http.get<any>(`https://api-adresse.data.gouv.fr/search/?q=${query}&limit=5`);
   }
 }

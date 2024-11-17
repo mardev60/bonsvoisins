@@ -107,4 +107,8 @@ export class HomeComponent implements OnInit {
       },
     });
   }
+
+  onLocationChange(location: string): void {
+    console.log('Nouvelle localisation sélectionnée :', location);
+  }
 }

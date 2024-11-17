@@ -1,6 +1,7 @@
 <div class="flex justify-start items-center p-4">
-  <app-location-selector class="w-full"></app-location-selector>
+  <app-location-selector class="w-full" (locationChange)="onLocationChange($event)"></app-location-selector>
 </div>
+
 <div
   class="home-container min-h-screen flex justify-center"
 >
