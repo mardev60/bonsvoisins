@@ -132,4 +132,31 @@ export class MealsService {
       data,
     });
   }
+
+  async disableMeal(id: number): Promise<any> {
+    const meal = await this.prisma.meal.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+  
+    if (!meal) {
+      return { success: false, message: 'Meal not found' };
+    }
+  
+    if (!meal.is_active) {
+      return { success: false, message: 'Meal is already desactivated' };
+    }
+
+    const updatedMeal = await this.prisma.meal.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        is_active: false,
+      },
+    });
+
+    return { success: true, message: 'Meal deactivated successfully', meal: updatedMeal };
+  }
 }
