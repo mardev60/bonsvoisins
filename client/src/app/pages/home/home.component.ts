@@ -13,9 +13,28 @@ export class HomeComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    //this.fetchMeals();
+    this.fetchMeals();
     //this.fetchMealsByUser();
   }
+
+  formatMealTime(dateStart: string | null, dateEnd: string | null): string {
+    if (!dateStart || !dateEnd) {
+      return 'Date non disponible';
+    }
+    
+    const optionsDate: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+    const optionsTime: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+  
+    const start = new Date(dateStart);
+    const end = new Date(dateEnd);
+  
+    const formattedDate = start.toLocaleDateString('fr-FR', optionsDate);
+    const startTime = start.toLocaleTimeString('fr-FR', optionsTime);
+    const endTime = end.toLocaleTimeString('fr-FR', optionsTime);
+  
+    return `À récupérer le ${formattedDate} entre ${startTime} et ${endTime}`;
+  }
+  
 
   fetchMeals(): void {
     console.log('Récupération des repas "actifs" ...');
@@ -80,8 +99,10 @@ export class HomeComponent implements OnInit {
   }
 
   updateMeal(id: number): void {
+    const randomCode = Math.random().toString(36).substring(2, 8);
+
     const mealData = {
-      name: 'Repas test 2 (modifié)',
+      name: 'Repas test 2 (modifié) ' + randomCode,
       description: 'Description du repas test (modifiée)',
     };
 
