@@ -1,5 +1,9 @@
+<div class="flex justify-start items-center p-4">
+  <app-location-selector class="w-full" (locationChange)="onLocationChange($event)"></app-location-selector>
+</div>
+
 <div
-  class="home-container min-h-screen flex justify-center bg-gradient-to-r from-blue-500 to-teal-500"
+  class="home-container min-h-screen flex justify-center"
 >
   <div class="content p-6 w-full bg-white rounded-lg shadow-lg">
     <div class="last-meals mt-10">

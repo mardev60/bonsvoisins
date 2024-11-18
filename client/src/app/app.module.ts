@@ -13,6 +13,7 @@ import { FirstConnectionFormComponent } from './pages/first-connection-form/firs
 import { HomeComponent } from './pages/home/home.component';
 import { environment as env } from '../environments/environment.development';
 import { provideAuth0 } from '@auth0/auth0-angular';
+import { LocationSelectorComponent } from './components/location-selector/location-selector.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { provideAuth0 } from '@auth0/auth0-angular';
     DashboardComponent,
     NavbarComponent,
     FirstConnectionFormComponent,
-    HomeComponent
+    HomeComponent,
+    LocationSelectorComponent
   ],
   imports: [
     BrowserModule,
