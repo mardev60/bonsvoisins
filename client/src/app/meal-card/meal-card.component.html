@@ -12,7 +12,7 @@
     <span
         class="absolute top-3 left-3 bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-full"
     >
-        2 plats disponibles
+        x plat(s) disponible(s)
     </span>
 
     <!-- Photo de profil et nom -->
@@ -32,7 +32,7 @@
     <div class="p-4">
     <h3 class="text-lg font-semibold text-gray-800">{{meal.name}}</h3>
     <p class="text-sm text-gray-600 mt-2">
-        <!-- {{ formatMealTime(meal.date_start, meal.date_end) }} -->
+        {{ formatMealDateTime(meal.date_start, meal.date_end) }}
     </p>
     <div class="flex items-center mt-2">
         

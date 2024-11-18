@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Meal } from '../types/types';
+import { formatDateTime } from '../utils/format-date-time';
 
 @Component({
   selector: 'app-meal-card',
@@ -7,4 +8,5 @@ import { Meal } from '../types/types';
 })
 export class MealCardComponent {
   @Input() meal!: Meal;
+  formatMealDateTime = formatDateTime;
 }

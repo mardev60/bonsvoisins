@@ -15,6 +15,7 @@ import { environment as env } from '../environments/environment.development';
 import { provideAuth0 } from '@auth0/auth0-angular';
 import { LocationSelectorComponent } from './components/location-selector/location-selector.component';
 import { MealCardComponent } from './meal-card/meal-card.component';
+import { LastMealsListComponent } from './last-meals-list/last-meals-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MealCardComponent } from './meal-card/meal-card.component';
     FirstConnectionFormComponent,
     HomeComponent,
     LocationSelectorComponent,
-    MealCardComponent
+    MealCardComponent,
+    LastMealsListComponent
   ],
   imports: [
     BrowserModule,
