@@ -37,12 +37,9 @@ export class HomeComponent implements OnInit {
   
 
   fetchMeals(): void {
-    console.log('Récupération des repas "actifs" ...');
-
     this.apiService.get<Meal[]>('meals/active').subscribe({
       next: (data) => {
         this.meals = data;
-        console.log('Repas actifs:', this.meals);
       },
       error: (error) => {
         console.error(

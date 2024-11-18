@@ -1,9 +1,6 @@
 <div class="min-h-screen">
-
   <div class="home-container h-full flex justify-center bg-gray-50">
-
     <div class="content p-2 w-full max-w-4xl bg-white rounded-lg shadow-xs">
-
       <div class="flex justify-start items-center py-4">
         <app-location-selector
           class="w-full"
@@ -20,68 +17,9 @@
           class="meals-list flex space-x-6 overflow-x-auto py-4 scrollbar-hide"
         >
           <ng-container *ngFor="let meal of meals">
-            <div
-              class="min-w-72 max-w-96 bg-white rounded-xl shadow-lg overflow-hidden"
-            >
-              <!-- Image de fond -->
-              <div class="relative">
-                <img
-                  src="../../../assets/meal2.png"
-                  alt="Lasagnes"
-                  class="w-full h-48 object-cover"
-                />
-                <!-- Badge en haut à gauche -->
-                <span
-                  class="absolute top-3 left-3 bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-full"
-                >
-                  2 plats disponibles
-                </span>
-
-                <!-- Photo de profil et nom -->
-                <div
-                  class="absolute bottom-3 left-3 flex items-center space-x-2 p-2 rounded-md"
-                >
-                  <img
-                    src="https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp"
-                    alt="John D."
-                    class="w-10 h-10 rounded-full border-2 border-white"
-                  />
-                  <p class="text-white text-sm font-semibold">John D.</p>
-                </div>
-              </div>
-
-              <!-- Contenu principal -->
-              <div class="p-4">
-                <h3 class="text-lg font-semibold text-gray-800">{{meal.name}}</h3>
-                <p class="text-sm text-gray-600 mt-2">
-                  {{ formatMealTime(meal.date_start, meal.date_end) }}
-                </p>
-                <div class="flex items-center mt-2">
-                  
-                  <p class="text-ms font-semibold text-gray-800">📍{{meal.collect_address}}</p>
-                </div>
-                
-                <!-- Détails supplémentaires -->
-                <div class="flex items-center justify-between mt-4 text-sm">
-                  <div class="flex items-center text-gray-500 space-x-2">
-                    <span class="flex items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4 text-orange-400"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path d="M9.049 2.927C9.469 1.769 10.531 1.769 10.951 2.927L12.454 6.891C12.671 7.472 13.416 7.907 14.034 7.75L18.057 6.659C19.305 6.327 19.687 7.86 18.737 8.741L15.88 11.28C15.325 11.782 15.213 12.586 15.667 13.084L18.382 15.863C19.296 16.827 18.548 18.322 17.204 18.322H13.203C12.504 18.322 11.943 18.8 11.854 19.496L11.317 23.224C11.111 24.581 9.889 24.581 9.683 23.224L9.146 19.496C9.057 18.8 8.496 18.322 7.797 18.322H3.796C2.452 18.322 1.704 16.827 2.618 15.863L5.333 13.084C5.787 12.586 5.675 11.782 5.12 11.28L2.263 8.741C1.313 7.86 1.695 6.327 2.943 6.659L6.966 7.75C7.584 7.907 8.329 7.472 8.546 6.891L10.049 2.927H9.049Z" />
-                      </svg>
-                      4.2
-                    </span>
-                    <span>|</span>
-                    <span>2.6 km</span>
-                  </div>
-                  <p class="text-lg font-bold text-gray-800">2,99€</p>
-                </div>
-              </div>
-            </div>  
+            <app-meal-card
+              [meal]="meal"
+            ></app-meal-card>
           </ng-container>
         </div>
       </div>
