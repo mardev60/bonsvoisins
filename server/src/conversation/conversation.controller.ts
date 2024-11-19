@@ -32,18 +32,18 @@ import {
       }
     }
   
-    @Post('/message/:mealId')
+    @Post('/message/:conversationId')
     @UseGuards(AuthorizationGuard, RolesGuard)
     @Roles('user')
     async sendMessage(
       @Req() req,
-      @Param('conversationId') conversationId: number,
+      @Param('conversationId') conversationId: string,
       @Body() sendMessageDto: SendMessageDto,
     ) {
       try {
         const { idReceiver, message } = sendMessageDto;
         return await this.conversationService.sendMessage(
-          Number(conversationId),
+          parseInt(conversationId),
           req.user.id,
           idReceiver,
           message,
