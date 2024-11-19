@@ -37,13 +37,13 @@ import {
     @Roles('user')
     async sendMessage(
       @Req() req,
-      @Param('mealId') mealId: number,
+      @Param('conversationId') conversationId: number,
       @Body() sendMessageDto: SendMessageDto,
     ) {
       try {
         const { idReceiver, message } = sendMessageDto;
         return await this.conversationService.sendMessage(
-          Number(mealId),
+          Number(conversationId),
           req.user.id,
           idReceiver,
           message,
