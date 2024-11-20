@@ -5,6 +5,7 @@ import { PrismaService } from './prisma.service';
 import { MealsModule } from './meals/meals.module';
 import { CommandsModule } from './commands/commands.module';
 import { GeoLocalisationModule } from './geo-localisation/geo-localisation.module';
+import { ConversationModule } from './conversation/conversation.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { GeoLocalisationModule } from './geo-localisation/geo-localisation.modul
     UsersModule, 
     MealsModule,
     CommandsModule,
-    GeoLocalisationModule
+    GeoLocalisationModule,
+    ConversationModule
   ],
   controllers: [],
   providers: [PrismaService],

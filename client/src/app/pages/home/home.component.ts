@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../core/services/api.service';
 import { Meal } from '../../types/types';
 
@@ -7,23 +7,19 @@ import { Meal } from '../../types/types';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  meals: Meal[] = [];
   userMeals: Meal[] = [];
+  meals: Meal[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    //this.fetchMeals();
-    //this.fetchMealsByUser();
+    this.fetchMeals();
   }
 
   fetchMeals(): void {
-    console.log('Récupération des repas "actifs" ...');
-
     this.apiService.get<Meal[]>('meals/active').subscribe({
       next: (data) => {
         this.meals = data;
-        console.log('Repas actifs:', this.meals);
       },
       error: (error) => {
         console.error(
@@ -35,10 +31,6 @@ export class HomeComponent implements OnInit {
   }
 
   fetchMealsByUser(): void {
-    console.log(
-      "Récupération des repas de l'utilisateur avec l'id 2 (en dur pour tester)..."
-    );
-
     this.apiService.get<Meal[]>('meals/user/2').subscribe({
       next: (data) => {
         this.userMeals = data;
@@ -66,8 +58,6 @@ export class HomeComponent implements OnInit {
       description: 'Description du repas test',
     };
 
-    console.log('Données envoyées pour créer un repas :', mealData);
-
     this.apiService.post<Meal>('meals', mealData).subscribe({
       next: (data) => {
         console.log('Repas créé avec succès :', data);
@@ -80,8 +70,10 @@ export class HomeComponent implements OnInit {
   }
 
   updateMeal(id: number): void {
+    const randomCode = Math.random().toString(36).substring(2, 8);
+
     const mealData = {
-      name: 'Repas test 2 (modifié)',
+      name: 'Repas test 2 (modifié) ' + randomCode,
       description: 'Description du repas test (modifiée)',
     };
 

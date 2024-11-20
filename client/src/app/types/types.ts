@@ -12,6 +12,9 @@ export type Meal = {
   updatedat: string | null;
   command: Command[];
   conversation: Conversation[];
+  // user: {
+  //   first_name: string;
+  // }
 };
 
 export type Command = {

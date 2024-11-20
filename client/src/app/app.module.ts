@@ -17,6 +17,8 @@ import { LocationSelectorComponent } from './components/location-selector/locati
 import { CollecteComponent } from './pages/collecte/collecte.component';
 import { ProposerUnPlatComponent } from './pages/proposer-un-plat/proposer-un-plat.component';
 import { ProfilComponent } from './pages/profil/profil.component';
+import { MealCardComponent } from './meal-card/meal-card.component';
+import { MealsListComponent } from './components/meals-list/meals-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ProfilComponent } from './pages/profil/profil.component';
     LocationSelectorComponent,
     CollecteComponent,
     ProposerUnPlatComponent,
-    ProfilComponent
+    ProfilComponent,
+    MealCardComponent,
+    MealsListComponent
   ],
   imports: [
     BrowserModule,
