@@ -14,6 +14,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { environment as env } from '../environments/environment.development';
 import { provideAuth0 } from '@auth0/auth0-angular';
 import { LocationSelectorComponent } from './components/location-selector/location-selector.component';
+import { CollecteComponent } from './pages/collecte/collecte.component';
+import { ProposerUnPlatComponent } from './pages/proposer-un-plat/proposer-un-plat.component';
+import { ProfilComponent } from './pages/profil/profil.component';
 import { MealCardComponent } from './meal-card/meal-card.component';
 import { MealsListComponent } from './components/meals-list/meals-list.component';
 import { CollecteComponent } from './pages/collecte/collecte.component';
@@ -29,6 +32,9 @@ import { ProfilComponent } from './pages/profil/profil.component';
     FirstConnectionFormComponent,
     HomeComponent,
     LocationSelectorComponent,
+    CollecteComponent,
+    ProposerUnPlatComponent,
+    ProfilComponent,
     MealCardComponent,
     MealsListComponent,
     CollecteComponent,
