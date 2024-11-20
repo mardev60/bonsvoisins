@@ -22,8 +22,8 @@ import { RolesGuard } from 'src/guards/roles.guard';
 import { ConversationService } from './conversation.service';
 import { SendMessageDto } from './dtos/send-message.dto';
 
-@ApiTags('Conversation') // Tag pour regrouper les routes
-@ApiBearerAuth() // Indique que l'authentification JWT est requise
+@ApiTags('Conversation')
+@ApiBearerAuth()
 @Controller('conversation')
 export class ConversationController {
   constructor(private conversationService: ConversationService) {}
@@ -31,7 +31,7 @@ export class ConversationController {
   @Get('/:mealId')
   @UseGuards(AuthorizationGuard, RolesGuard)
   @Roles('user')
-  @ApiOperation({ summary: 'Récupérer une conversation' }) // Description de l'opération
+  @ApiOperation({ summary: 'Récupérer une conversation' })
   @ApiParam({
     name: 'mealId',
     description: 'Identifiant du repas associé à la conversation',
