@@ -19,9 +19,6 @@ import { ProposerUnPlatComponent } from './pages/proposer-un-plat/proposer-un-pl
 import { ProfilComponent } from './pages/profil/profil.component';
 import { MealCardComponent } from './meal-card/meal-card.component';
 import { MealsListComponent } from './components/meals-list/meals-list.component';
-import { CollecteComponent } from './pages/collecte/collecte.component';
-import { ProposerUnPlatComponent } from './pages/proposer-un-plat/proposer-un-plat.component';
-import { ProfilComponent } from './pages/profil/profil.component';
 
 @NgModule({
   declarations: [
