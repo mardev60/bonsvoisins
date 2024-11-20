@@ -42,7 +42,7 @@ export class MealsService {
 
 /**
  * Récupère la liste des repas actifs, triés par date de fin dans l'ordre croissant.
- * Un repas est considéré comme actif si sa date de début est passée et sa date de fin n'est pas encore atteinte.
+ * Un repas est considéré comme actif si sa date de début est passée, sa date de fin n'est pas encore atteinte, et la propriété `is_active` est définie sur `true`.
  * @returns Un tableau de repas actifs (`meal[]`).
  */
   async getActiveMeals(): Promise<meal[]> {
@@ -55,6 +55,7 @@ export class MealsService {
         date_end: {
           gte: now,
         },
+        is_active: true,
       },
       orderBy: {
         date_end: 'asc',
@@ -64,7 +65,7 @@ export class MealsService {
 
 /**
  * Récupère la liste des repas inactifs, triés par date de fin dans l'ordre croissant.
- * Un repas est considéré comme inactif si sa date de fin est passée.
+ * Un repas est considéré comme inactif si sa date de début n'est pas encore atteinte, sa date de fin est passée ou que la propriété `is_active` est définie sur `false`.
  * @returns Un tableau de repas inactifs (`meal[]`).
  */
   async getInactiveMeals(): Promise<meal[]> {
@@ -74,6 +75,7 @@ export class MealsService {
         date_end: {
           lt: now,
         },
+        is_active: false,
       },
       orderBy: {
         date_end: 'asc',
@@ -97,6 +99,7 @@ export class MealsService {
 
 /**
  * Récupère la liste des repas actifs créés par un utilisateur spécifique, triés par date de fin dans l'ordre croissant.
+ * Un repas est considéré comme actif si sa date de début est passée, sa date de fin n'est pas encore atteinte, et la propriété `is_active` est définie sur `true`.
  * @param uid - L'identifiant unique de l'utilisateur (auteur des repas).
  * @returns Un tableau de repas actifs créés par l'utilisateur (`meal[]`).
  */
@@ -111,6 +114,7 @@ export class MealsService {
         date_end: {
           gte: now,
         },
+        is_active: true,
       },
       orderBy: {
         date_end: 'asc',
@@ -120,7 +124,7 @@ export class MealsService {
 
 /**
  * Récupère la liste des repas inactifs créés par un utilisateur spécifique, triés par date de fin dans l'ordre croissant.
- * Un repas est considéré comme inactif si sa date de fin est antérieure à la date actuelle.
+ * Un repas est considéré comme inactif si sa date de début n'est pas encore atteinte, sa date de fin est passée ou que la propriété `is_active` est définie sur `false`.
  * @param uid - L'identifiant unique de l'utilisateur (auteur des repas).
  * @returns Un tableau de repas inactifs créés par l'utilisateur (`meal[]`).
  */
@@ -132,6 +136,7 @@ export class MealsService {
         date_end: {
           lt: now,
         },
+        is_active: false,
       },
       orderBy: {
         date_end: 'asc',
