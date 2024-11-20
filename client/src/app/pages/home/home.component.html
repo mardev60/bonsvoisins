@@ -1,61 +1,18 @@
-<div class="flex justify-start items-center p-4">
-  <app-location-selector class="w-full" (locationChange)="onLocationChange($event)"></app-location-selector>
-</div>
-
-<div
-  class="home-container min-h-screen flex justify-center"
->
-  <div class="content p-6 w-full bg-white rounded-lg shadow-lg">
-    <div class="last-meals mt-10">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Derniers Repas</h2>
-
-      <div class="meals-list overflow-x-scroll max-w-full flex space-x-4 py-4">
-        <ng-container *ngFor="let meal of meals">
-          <div
-            class="meal-item flex-shrink-0 w-96 p-4 bg-gray-100 rounded-lg shadow-md"
-          >
-            <img
-              src="../../../assets/meal2.png"
-              [alt]="meal.name"
-              class="w-full h-32 object-cover rounded-lg mb-4"
-            />
-            <div class="meal-info">
-              <h3 class="text-lg font-semibold text-gray-800">
-                {{ meal.name }}
-              </h3>
-            </div>
-
-            <!-- Boutons pour modifier et supprimer -->
-            <div class="meal-actions mt-4 flex justify-between">
-              <button
-                (click)="updateMeal(meal.id)"
-                class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded"
-              >
-                Modifier
-              </button>
-              <button
-                (click)="deleteMeal(meal.id)"
-                class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
-              >
-                Supprimer
-              </button>
-            </div>
-          </div>
-        </ng-container>
+<div class="min-h-screen">
+  <div class="home-container h-full flex justify-center bg-gray-50">
+    <div class="container content p-2 w-full rounded-lg shadow-xs">
+      
+      <div class="flex justify-start items-center md:py-4">
+        <app-location-selector
+          class="w-full"
+          (locationChange)="onLocationChange($event)"
+        ></app-location-selector>
       </div>
 
-      <!-- Bouton pour créer un repas random associé à l'utilisateur en cours -->
-      <button
-        (click)="createMeal()"
-        class="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Créer un repas
-      </button>
+      <app-meals-list
+        [meals]="meals"
+      ></app-meals-list>
+      
     </div>
-    <style>
-      .meals-list::-webkit-scrollbar {
-        display: none; /* Hides the scrollbar on Chrome, Safari, Edge */
-      }
-    </style>
   </div>
 </div>
