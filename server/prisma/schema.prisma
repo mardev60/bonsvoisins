@@ -18,8 +18,8 @@ model command {
   id           Int       @id @default(autoincrement())
   id_meal      Int
   id_collector Int
-  createdAt    DateTime? @default(now()) @db.Timestamp(6)
   collectedat  DateTime? @db.Timestamp(6)
+  createdAt    DateTime? @default(now()) @db.Timestamp(6)
   user         user      @relation(fields: [id_collector], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_collector")
   meal         meal      @relation(fields: [id_meal], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_meal")
 
@@ -46,10 +46,10 @@ model meal {
   collect_code    String?         @db.VarChar(50)
   date_start      DateTime?       @db.Timestamp(6)
   date_end        DateTime?       @db.Timestamp(6)
-  is_active        Boolean         @default(true)
   photo_url       String?         @db.VarChar(255)
   createdat       DateTime?       @default(now()) @db.Timestamp(6)
   updatedat       DateTime?       @default(now()) @db.Timestamp(6)
+  is_active       Boolean         @default(true)
   command         command[]
   conversation    conversation[]
   user            user            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_author")
@@ -93,6 +93,7 @@ model user {
   last_name                         String?     @db.VarChar(255)
   first_name                        String?     @db.VarChar(255)
   phone                             String?     @db.VarChar(20)
+  avatar                            String?     @db.VarChar(255)
   command                           command[]
   meal                              meal[]
   message_message_id_receiverTouser message[]   @relation("message_id_receiverTouser")

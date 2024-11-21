@@ -12,7 +12,7 @@ export class UsersService {
    * @param user L'utilisateur à vérifier (contient l'id Auth0)
    * @returns true si l'utilisateur est nouveau ou a des informations manquantes, sinon false.
    */
-  async checkFirstTime(user: { sub: string }): Promise<boolean> {
+  async checkFirstTime(user: { sub: string, picture: string }): Promise<boolean> {
     const existingUser = await this.prisma.user.findUnique({
       where: { id_auth0: user.sub },
       include: { user_role: true },
@@ -22,6 +22,7 @@ export class UsersService {
       await this.prisma.user.create({
         data: {
           id_auth0: user.sub,
+          avatar: user.picture,
           user_role: {
             create: { role_id: 3 },
           },
