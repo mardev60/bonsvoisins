@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProposerUnPlatComponent } from './proposer-un-plat.component';
+import { CollectionComponent } from './collection.component';
 
-describe('ProposerUnPlatComponent', () => {
-  let component: ProposerUnPlatComponent;
-  let fixture: ComponentFixture<ProposerUnPlatComponent>;
+describe('CollectionComponent', () => {
+  let component: CollectionComponent;
+  let fixture: ComponentFixture<CollectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProposerUnPlatComponent]
+      declarations: [CollectionComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ProposerUnPlatComponent);
+    fixture = TestBed.createComponent(CollectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
