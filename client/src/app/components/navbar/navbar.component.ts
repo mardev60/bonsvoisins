@@ -1,21 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ApiService } from '../../core/services/api.service';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
-
   @Output() logout = new EventEmitter<void>();
 
-  constructor(private apiService : ApiService) {}
+  constructor(private router: Router) {}
 
   logoutUser() {
     this.logout.emit();
   }
 
-  async fetchUser() {
-    const user = await this.apiService.get<any>('').subscribe(user => {console.log(user)});
+  isActive(link: string): boolean {
+    return this.router.url === link;
   }
 }
