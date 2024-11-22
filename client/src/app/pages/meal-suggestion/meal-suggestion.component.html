@@ -1,1 +1,74 @@
-<p>meal-suggestion works!</p>
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="flex flex-col justify-center items-center py-6">
+        <h1 class="text-2xl text-lightSalmon">Proposer un plat</h1>
+        <p class="text-sm text-gray-500">Évitons le gaspillage ensemble !</p>
+
+        <a href="#" class="bg-lightSalmon text-xl text-white px-6 py-3 rounded-full shadow-xl hover:bg-orange-500 mt-6 mb-4 font-poppins w-3/4 text-center">
+            Je propose un plat !
+        </a>
+    </div>
+  
+    <!-- Historique des plats proposés -->
+    <div class="px-4">
+      <h2 class="text-gray-700 mb-4">Historique des plats proposés</h2>
+  
+      <!-- Aujourd'hui -->
+      <div class="mb-6">
+        <h3 class="text-center text-sm text-gray-600 mb-2">Aujourd'hui</h3>
+
+        <div class="flex bg-white rounded-lg shadow-md relative overflow-hidden">
+            <div class="meal-picture min-h-full w-1/4">
+              <img src="https://via.placeholder.com/80" alt="plat" class="h-full object-cover">
+              <span class="w-4 h-4 bg-green-500 rounded-full absolute bottom-1 left-1 shadow-xl"></span>
+            </div>
+  
+            <div class="flex-1 py-2 px-3">
+              <h4 class="text-gray-800 font-semibold">Pâtes bolognaise</h4>
+              <p class="text-sm text-gray-600">1 plat proposé • 0 plat récupéré</p>
+              <p class="text-xs text-gray-500">À récupérer aujourd'hui entre 12:00 et 15:00</p>
+            </div>
+          </div>
+      </div>
+  
+      <!-- Hier -->
+      <div class="mb-6">
+        <h3 class="text-center text-sm text-gray-600 mb-2">Hier</h3>
+
+        <div class="flex bg-white rounded-lg shadow-md relative overflow-hidden">
+          <div class="meal-picture min-h-full w-1/4">
+            <img src="../../../assets/meal2.png" alt="plat" class="h-full object-cover">
+            <span class="w-4 h-4 bg-red-500 rounded-full absolute bottom-1 left-1 shadow-xl"></span>
+          </div>
+
+          <div class="flex-1 py-2 px-3">
+            <h4 class="text-gray-800 font-semibold">Pâtes bolognaise</h4>
+            <p class="text-sm text-gray-600">1 plat proposé • 0 plat récupéré</p>
+            <p class="text-xs text-gray-500">À récupérer aujourd'hui entre 12:00 et 15:00</p>
+          </div>
+        </div>
+      </div>
+  
+    <!-- Navigation en bas de page -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white shadow-md">
+      <div class="flex justify-around py-3">
+        <button class="text-gray-600 hover:text-gray-800">
+          <span class="material-icons">explore</span>
+          <p class="text-xs">Découvrir</p>
+        </button>
+        <button class="text-gray-600 hover:text-gray-800">
+          <span class="material-icons">shopping_bag</span>
+          <p class="text-xs">Collecte</p>
+        </button>
+        <button class="text-orange-600">
+          <span class="material-icons">restaurant</span>
+          <p class="text-xs">Proposer</p>
+        </button>
+        <button class="text-gray-600 hover:text-gray-800">
+          <span class="material-icons">person</span>
+          <p class="text-xs">Profil</p>
+        </button>
+      </div>
+    </div>
+  </div>
+  
