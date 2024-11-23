@@ -51,7 +51,7 @@ export class MealSuggestionComponent {
   }
 
   groupMealsByDate(): void {
-    const { todayDate, yesterdayDate, startOfWeek, endOfWeek, startOfMonth, startOfYear, endOfYear } = getDateRanges();
+    const { todayDate, yesterdayDate, startOfWeek, startOfMonth, startOfYear, endOfYear } = getDateRanges();
 
     this.groupedMeals = {
       today: this.myMeals.filter(
@@ -63,8 +63,8 @@ export class MealSuggestionComponent {
       this_week: this.myMeals.filter(
         (meal) =>
           meal.createdat &&
-          new Date(meal.createdat) > yesterdayDate &&
-          new Date(meal.createdat) <= endOfWeek
+          new Date(meal.createdat) > startOfWeek &&
+          new Date(meal.createdat) <= yesterdayDate
       ),
       this_month: this.myMeals.filter(
         (meal) =>
