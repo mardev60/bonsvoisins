@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../core/services/api.service';
-import { Meal } from '../../types/types';
+import { Meal } from '../../types/db-entities.type';
 
 @Component({
   selector: 'app-home',

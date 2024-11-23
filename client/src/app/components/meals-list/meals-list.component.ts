@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Meal } from '../../types/types';
+import { Meal } from '../../types/db-entities.type';
 
 @Component({
   selector: 'app-meals-list',
