@@ -8,43 +8,28 @@
             Je propose un plat !
         </a>
     </div>
-  
+
     <!-- Historique des plats proposés -->
     <div class="px-4">
       <h2 class="text-gray-700 mb-4">Historique des plats proposés</h2>
-  
-      <!-- Aujourd'hui -->
+
       <div class="mb-6">
-        <h3 class="text-center text-sm text-gray-600 mb-2">Aujourd'hui</h3>
+        <div *ngFor="let group of getGroupedMeals()">
+          <h3 class="text-center text-sm text-gray-600 mb-2">{{ getGroupLabel(group.key) }}</h3>
 
-        <div class="flex bg-white rounded-lg shadow-md relative overflow-hidden">
-            <div class="meal-picture min-h-full w-1/4">
-              <img src="https://via.placeholder.com/80" alt="plat" class="h-full object-cover">
-              <span class="w-4 h-4 bg-green-500 rounded-full absolute bottom-1 left-1 shadow-xl"></span>
+          <div *ngFor="let meal of group.value" class="mb-6">
+            <div class="flex bg-white rounded-lg shadow-md relative overflow-hidden">
+              <div class="meal-picture min-h-full w-1/4">
+                <img [src]="meal.photo_url || 'https://via.placeholder.com/80'" alt="plat" class="h-full object-cover">
+              </div>
+              <div class="flex-1 py-2 px-3">
+                <h4 class="text-gray-800 font-semibold">{{ meal.name }}</h4>
+                <p class="text-sm text-gray-600">1 plat proposé • 0 plat récupéré</p>
+                <p class="text-xs text-gray-500">
+                  {{ formatMealDateTime(meal.date_start, meal.date_end) }}
+                </p>
+              </div>
             </div>
-  
-            <div class="flex-1 py-2 px-3">
-              <h4 class="text-gray-800 font-semibold">Pâtes bolognaise</h4>
-              <p class="text-sm text-gray-600">1 plat proposé • 0 plat récupéré</p>
-              <p class="text-xs text-gray-500">À récupérer aujourd'hui entre 12:00 et 15:00</p>
-            </div>
-          </div>
-      </div>
-  
-      <!-- Hier -->
-      <div class="mb-6">
-        <h3 class="text-center text-sm text-gray-600 mb-2">Hier</h3>
-
-        <div class="flex bg-white rounded-lg shadow-md relative overflow-hidden">
-          <div class="meal-picture min-h-full w-1/4">
-            <img src="../../../assets/meal2.png" alt="plat" class="h-full object-cover">
-            <span class="w-4 h-4 bg-red-500 rounded-full absolute bottom-1 left-1 shadow-xl"></span>
-          </div>
-
-          <div class="flex-1 py-2 px-3">
-            <h4 class="text-gray-800 font-semibold">Pâtes bolognaise</h4>
-            <p class="text-sm text-gray-600">1 plat proposé • 0 plat récupéré</p>
-            <p class="text-xs text-gray-500">À récupérer aujourd'hui entre 12:00 et 15:00</p>
           </div>
         </div>
       </div>
