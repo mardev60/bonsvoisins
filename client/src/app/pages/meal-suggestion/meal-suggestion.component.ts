@@ -12,7 +12,6 @@ import { getDateRanges } from '../../utils/get-date-range';
 export class MealSuggestionComponent {
   myMeals: Meal[] = [];
   groupedMeals: { [key: string]: Meal[] } = {};
-  formatMealDateTime = formatDateTime;
 
   constructor(private apiService: ApiService) {}
 
