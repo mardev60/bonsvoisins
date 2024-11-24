@@ -1,1 +1,18 @@
-<p>collection works!</p>
+<div class="min-h-screen">
+  <div class="home-container h-full flex justify-center bg-gray-50 ">
+    <div class="container content p-2 w-full rounded-lg shadow-xs">
+      <div class="flex justify-center items-center py-3">
+        <span class="text-xl text-darkSalmon font-bold">Repas à collecter</span>
+      </div>
+
+      <div class="mb-10">
+      <app-command-group
+        *ngFor="let group of getGroupedCommandsKeys()"
+        [groupName]="group"
+        [commands]="groupedCommands[group]"
+        (commandSelected)="onCommandSelected($event)"
+      ></app-command-group>
+      </div>
+    </div>
+  </div>
+</div>

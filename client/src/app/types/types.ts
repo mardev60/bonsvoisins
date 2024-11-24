@@ -41,3 +41,19 @@ export type Message = {
   updatedat: string | null;
   conversation: Conversation;
 };
+
+export interface CommandDetailed {
+  id: number;
+  name: string;
+  image: string;
+  date_start: Date;
+  date_end: Date;
+  collectedAt: Date | null;
+  collect_status: string;
+  user: string;
+}
+
+export interface GroupedCommands {
+  [key: string]: CommandDetailed[];
+}
+

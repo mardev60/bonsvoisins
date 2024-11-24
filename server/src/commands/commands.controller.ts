@@ -57,4 +57,13 @@ export class CommandsController {
   async getCommandsHistory(@Req() req): Promise<any> {
     return await this.commandsService.commandsCollected(req.user.id);
   }
+
+  @UseGuards(AuthorizationGuard, RolesGuard)
+  @Roles('user')
+  @Get('/all-commands')
+  @ApiOperation({ summary: 'Lister toutes les commandes de l\'utilisateur' })
+  @ApiResponse({ status: 200, description: 'Liste des commandes (collectées ou non).' })
+  async getAllUserCommands(@Req() req): Promise<any> {
+    return await this.commandsService.allUserCommands(req.user.id);
+  }
 }
