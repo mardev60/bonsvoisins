@@ -20,11 +20,23 @@ export class MealSuggestionComponent {
     this.fetchMealsByUser();
   }
 
+  fetchMealsByUser(): void {
+    this.apiService.get<Meal[]>('meals/my').subscribe({
+      next: (data) => {
+        this.myMeals = data;
+        this.groupMealsByDate();
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des repas:', error);
+      },
+    });
+  }
+
   getGroupedMeals(): { key: string; value: Meal[] }[] {
-  return Object.entries(this.groupedMeals)
-  .filter(([key, value]) => value.length > 0)
-    .map(([key, value]) => ({ key, value }));
-}
+    return Object.entries(this.groupedMeals)
+    .filter(([key, value]) => value.length > 0)
+      .map(([key, value]) => ({ key, value }));
+  }
 
   getGroupLabel(key: string): string {
     const labels: { [key: string]: string } = {
@@ -38,21 +50,12 @@ export class MealSuggestionComponent {
     return labels[key] || 'Autres';
   }
 
-  fetchMealsByUser(): void {
-    this.apiService.get<Meal[]>('meals/my').subscribe({
-      next: (data) => {
-        this.myMeals = data;
-        this.groupMealsByDate();
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des repas:', error);
-      },
-    });
-  }
 
   groupMealsByDate(): void {
-    const { todayDate, yesterdayDate, startOfWeek, startOfMonth, startOfYear, endOfYear } = getDateRanges();
+    const { todayDate, yesterdayDate, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } = getDateRanges();
 
+    console.log(startOfWeek, " startOfWeek");
+    
     this.groupedMeals = {
       today: this.myMeals.filter(
         (meal) => meal.createdat && this.isSameDay(meal.createdat, todayDate)
@@ -63,14 +66,14 @@ export class MealSuggestionComponent {
       this_week: this.myMeals.filter(
         (meal) =>
           meal.createdat &&
-          new Date(meal.createdat) > startOfWeek &&
-          new Date(meal.createdat) <= yesterdayDate
+          new Date(meal.createdat) >= startOfWeek &&
+          new Date(meal.createdat) < yesterdayDate
       ),
       this_month: this.myMeals.filter(
         (meal) =>
           meal.createdat &&
           new Date(meal.createdat) >= startOfMonth &&
-          new Date(meal.createdat) <= startOfWeek
+          new Date(meal.createdat) < startOfWeek
       ),
       this_year: this.myMeals.filter(
         (meal) =>

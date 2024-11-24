@@ -4,6 +4,7 @@ export type DateRanges = {
   startOfWeek: Date;
   endOfWeek: Date;
   startOfMonth: Date;
+  endOfMonth: Date;
   startOfYear: Date;
   endOfYear: Date;
 };
