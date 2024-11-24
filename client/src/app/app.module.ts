@@ -19,6 +19,8 @@ import { MealCardComponent } from './meal-card/meal-card.component';
 import { MealsListComponent } from './components/meals-list/meals-list.component';
 import { CollectionComponent } from './pages/collection/collection.component';
 import { MealSuggestionComponent } from './pages/meal-suggestion/meal-suggestion.component';
+import { MealSuggestionHeaderComponent } from './meal-suggestion-header/meal-suggestion-header.component';
+import { MealMobileCardComponent } from './meal-mobile-card/meal-mobile-card.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MealSuggestionComponent } from './pages/meal-suggestion/meal-suggestion
     MealsListComponent,
     CollectionComponent,
     MealSuggestionComponent,
-    ProfilComponent
+    ProfilComponent,
+    MealSuggestionHeaderComponent,
+    MealMobileCardComponent
   ],
   imports: [
     BrowserModule,

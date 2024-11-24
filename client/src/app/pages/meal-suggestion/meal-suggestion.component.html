@@ -1,50 +1,30 @@
 <div class="bg-gray-50">
   <div class="container mx-auto min-h-screen">
 
-    <!-- Header -->
-    <div class="flex flex-col justify-center items-center py-6">
-        <h1 class="text-2xl text-lightSalmon">Proposer un plat</h1>
-        <p class="text-sm text-gray-500">Évitons le gaspillage ensemble !</p>
-
-        <a href="#" class="bg-lightSalmon text-xl text-white px-6 py-3 rounded-full shadow-xl hover:bg-orange-500 mt-6 mb-4 font-poppins w-3/4 text-center">
-            Je propose un plat !
-        </a>
-    </div>
+    <app-meal-suggestion-header/>
 
     <!-- Historique des plats proposés -->
-    <div class="px-4">
-      <h2 class="text-gray-700 mb-4">Historique des plats proposés</h2>
+    <div class="px-4 md:px-0">
+      <h2 class="text-gray-700 mb-4 md:text-2xl md:font-semibold ">Historique des plats proposés</h2>
 
       <div class="mb-6">
         <div *ngFor="let group of getGroupedMeals()">
-          <h3 class="text-center text-sm text-gray-600 mb-2">{{ getGroupLabel(group.key) }}</h3>
+          <h3 class="text-center lg:text-left text-sm lg:text-lg lg:font-medium text-gray-600 mb-2">{{ getGroupLabel(group.key) }}</h3>
 
           <div class="mb-6 md:grid md:grid-cols-3 xl:grid-cols-4 md:gap-2">
             <div *ngFor="let meal of group.value" >
 
-                <!-- Carte pour les grands écrans -->
+              <!-- Carte pour les grands écrans -->
               <app-meal-card
                 [meal]="meal"
                 class="hidden lg:block"
               ></app-meal-card>
 
               <!-- Carte pour les petits écrans -->
-              <div
-                class="flex items-center rounded-lg shadow-lg relative overflow-hidden min-h-full border mb-2 md:mb-0 lg:hidden"
-              >
-
-                <div class="meal-picture h-full w-24">
-                  <img [src]="meal.photo_url || '../../../assets/meal.png'" alt="plat" class="min-h-full object-cover">
-                </div>
-
-                <div class="flex flex-col justify-center py-2 px-3 w-3/4">
-                  <h4 class="text-gray-800 font-semibold">{{ meal.name }}</h4>
-                  <p class="text-sm text-gray-600">1 plat proposé • 0 plat récupéré</p>
-                  <p class="text-xs text-gray-500">
-                    {{ formatMealDateTime(meal.date_start, meal.date_end) }}
-                  </p>
-                </div>
-              </div>
+              <app-meal-mobile-card
+                [meal]="meal"
+                class="block lg:hidden"
+              ></app-meal-mobile-card>
             </div>
           </div>
         </div>
