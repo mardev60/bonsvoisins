@@ -1,4 +1,6 @@
-<div class="min-h-screen container mx-auto">
+<div class="bg-gray-50">
+  <div class="container mx-auto min-h-screen">
+
     <!-- Header -->
     <div class="flex flex-col justify-center items-center py-6">
         <h1 class="text-2xl text-lightSalmon">Proposer un plat</h1>
@@ -17,14 +19,22 @@
         <div *ngFor="let group of getGroupedMeals()">
           <h3 class="text-center text-sm text-gray-600 mb-2">{{ getGroupLabel(group.key) }}</h3>
 
-          <div class="mb-6 md:grid md:grid-cols-3 md:gap-4">
+          <div class="mb-6 md:grid md:grid-cols-3 xl:grid-cols-4 md:gap-2">
             <div *ngFor="let meal of group.value" >
-              
-              <div class="flex items-center rounded-lg shadow-md relative overflow-hidden min-h-full">
 
-                <div class="meal-picture w-24">
-                  <img [src]="meal.photo_url || 'https://via.placeholder.com/120'" alt="plat" class="min-h-full
-               object-cover">
+                <!-- Carte pour les grands écrans -->
+              <app-meal-card
+                [meal]="meal"
+                class="hidden lg:block"
+              ></app-meal-card>
+
+              <!-- Carte pour les petits écrans -->
+              <div
+                class="flex items-center rounded-lg shadow-lg relative overflow-hidden min-h-full border mb-2 md:mb-0 lg:hidden"
+              >
+
+                <div class="meal-picture h-full w-24">
+                  <img [src]="meal.photo_url || '../../../assets/meal.png'" alt="plat" class="min-h-full object-cover">
                 </div>
 
                 <div class="flex flex-col justify-center py-2 px-3 w-3/4">
@@ -62,4 +72,5 @@
       </div>
     </div>
   </div>
+</div>
   
