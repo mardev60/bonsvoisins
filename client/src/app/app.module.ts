@@ -23,6 +23,9 @@ import { MealSuggestionHeaderComponent } from './meal-suggestion-header/meal-sug
 import { MealMobileCardComponent } from './meal-mobile-card/meal-mobile-card.component';
 import { CommandCardComponent } from './components/command-card/command-card.component';
 import { CommandGroupComponent } from './components/command-group/command-group.component';
+import { PageInfoHeaderComponent } from './components/page-info-header/page-info-header.component';
+import { PageInfoContentComponent } from './components/page-info-content/page-info-content.component';
+import { PageInfoComponent } from './pages/page-info/page-info.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { CommandGroupComponent } from './components/command-group/command-group.
     MealSuggestionHeaderComponent,
     MealMobileCardComponent,
     CommandCardComponent,
-    CommandGroupComponent
+    CommandGroupComponent,
+    PageInfoHeaderComponent,
+    PageInfoContentComponent,
+    PageInfoComponent
   ],
   imports: [
     BrowserModule,
