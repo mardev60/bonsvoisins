@@ -127,4 +127,24 @@ export class CommandsService {
       },
     });
   }
+
+  /**
+   * Renvoie toutes les commandes d'un utilisateur.
+   * @param userId - L'identifiant de l'utilisateur.
+   * @returns Un tableau de commandes (collectées ou non).
+   */
+    async allUserCommands(userId: number): Promise<command[]> {
+      return this.prisma.command.findMany({
+        where: {
+          id_collector: Number(userId),
+        },
+        include: {
+          meal: {
+            include: {
+              user: true
+            }
+          }
+        },
+      });
+    }
 }
