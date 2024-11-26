@@ -9,16 +9,17 @@ import { FirstTimeGuard } from './core/guards/first-time.guard';
 import { ProfilComponent } from './pages/profil/profil.component';
 import { CollectionComponent } from './pages/collection/collection.component';
 import { MealSuggestionComponent } from './pages/meal-suggestion/meal-suggestion.component';
+import { NonFirstTimeGuard } from './core/guards/non-first-time.guard';
 MealSuggestionComponent
 
 const routes: Routes = [
   {path: '', component: WelcomeComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
     {path: 'welcome', component: FirstConnectionFormComponent, canActivate: [FirstTimeGuard]}, 
-    {path: 'home', component: HomeComponent},
-    {path: 'collecter', component: CollectionComponent},
-    {path: 'proposer', component: MealSuggestionComponent},
-    {path: 'profil', component: ProfilComponent},
+    {path: 'home', component: HomeComponent, canActivate: [NonFirstTimeGuard]},
+    {path: 'collecter', component: CollectionComponent, canActivate: [NonFirstTimeGuard]},
+    {path: 'proposer', component: MealSuggestionComponent, canActivate: [NonFirstTimeGuard]},
+    {path: 'profil', component: ProfilComponent, canActivate: [NonFirstTimeGuard]},
   ]},
   {path: '**', redirectTo: ''}
 ];

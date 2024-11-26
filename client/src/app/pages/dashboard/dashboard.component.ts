@@ -22,10 +22,14 @@ export class DashboardComponent implements OnInit {
 
   /**
    * Vérifie si l'utilisateur est en train de se connecter pour la première fois.
-   * Si oui, il redirige vers la page d'accueil pour la première connexion,
-   * sinon il le redirige vers la page d'accueil classique.
    */
   checkFirstTimeLogin() {
+    const currentUrl = this.router.url;
+    if (currentUrl !== '/dashboard' && currentUrl.startsWith('/dashboard')) {
+      this.isLoading = false;
+      return;
+    }
+    
     const isFirstTime = localStorage.getItem('isFirstLogin');
     if (isFirstTime !== null) {
       this.redirectBasedOnFirstTime(isFirstTime === 'true');
@@ -46,7 +50,6 @@ export class DashboardComponent implements OnInit {
 
   /**
    * Redirige l'utilisateur en fonction de son statut de première connexion
-   * @param isFirstTime : booléen - indique si l'utilisateur est connecté pour la première fois
    */
   redirectBasedOnFirstTime(isFirstTime: boolean) {
     this.isLoading = false;
