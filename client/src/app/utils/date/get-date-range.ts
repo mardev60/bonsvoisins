@@ -1,4 +1,10 @@
-import { DateRanges } from "../types/date-range.type";
+/**
+ * Génère les plages de dates importantes : aujourd'hui, hier, début et fin de la semaine, 
+ * début et fin du mois, et début et fin de l'année.
+ *
+ * @returns {DateRanges} - Un objet contenant les différentes plages de dates.
+ */
+import { DateRanges } from "../../types/date-range.type";
 
 export function getDateRanges() : DateRanges {
   const todayDate = new Date();
