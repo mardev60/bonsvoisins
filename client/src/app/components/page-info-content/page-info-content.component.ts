@@ -6,47 +6,52 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./page-info-content.component.scss'],
 })
 export class PageInfoContentComponent {
-  codeInputs: string[] = ['', '', '', '', ''];
+  digit1 = '';
+  digit2 = '';
+  digit3 = '';
+  digit4 = '';
+  digit5 = '';
 
-  @Input() showSendMessage: boolean = true;
-  @Input() showCodeBox: boolean = true;
+  @Input() showSendMessage: boolean = false;
+  @Input() showCodeBox: boolean = false;
   @Input() showCollectorGuide: boolean = false;
 
-  /**
-   * Passe automatiquement au champ suivant ou précédent
-   * @param index Index de l'input actuel
-   * @param event Événement de saisie
-   */
-  moveToNext(index: number, event: any) {
+  @Input() adress: string = '';
+  @Input() city: string = '';
+
+
+  updateValue(digit: string, event: Event) {
     const input = event.target as HTMLInputElement;
     const value = input.value;
-
-    // Si un chiffre a été entré, passe au champ suivant
+    (this as any)[digit] = value;
+  
     if (value.length === 1) {
-      if (index < this.codeInputs.length - 1) {
-        const nextInput = input.nextElementSibling as HTMLInputElement;
-        nextInput?.focus();
-      }
-    } else if (value.length === 0 && index > 0) {
-      // Si la case est effacée, passe au champ précédent
-      const prevInput = input.previousElementSibling as HTMLInputElement;
-      prevInput?.focus();
+      const currentIndex = parseInt(digit.replace('digit', ''), 10);
+      const nextIndex = currentIndex + 1;
+  
+      const nextField = document.querySelector(`input[name="digit${nextIndex}"]`) as HTMLInputElement;
+      nextField?.focus();
     }
-
-    // Mettez à jour la valeur du champ
-    this.codeInputs[index] = value;
   }
 
+  handleKeydown(event: KeyboardEvent, digit: string) {
+    const input = event.target as HTMLInputElement;
+  
+    if (event.key === 'Backspace' && input.value.length === 0) {
+      const currentIndex = parseInt(digit.replace('digit', ''), 10);
+      const prevIndex = currentIndex - 1;
+  
+      const prevField = document.querySelector(`input[name="digit${prevIndex}"]`) as HTMLInputElement;
+      prevField?.focus();
+    }
+  }
 
-  /**
-   * Soumet le code complet
-   */
   submitCode() {
-    const code = this.codeInputs.join('');
+    const code = `${this.digit1}${this.digit2}${this.digit3}${this.digit4}${this.digit5}`;
     if (code.length === 5) {
       console.log('Code complet:', code);
     } else {
-      console.log('Veuillez entrer un code complet.');
+      console.log('Veuillez entrer un code complet.', code);
     }
   }
 }

@@ -6,9 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrl: './page-info-header.component.scss'
 })
 export class PageInfoHeaderComponent {
-  @Input() dishImage: string = '';
+  @Input() coverImage: string = '';
   @Input() userImage: string = '';
-  @Input() userName: string = 'Utilisateur';
-  @Input() dishName: string = 'Plat'; 
-  @Input() timeRange: string = 'Plage horaire'; 
+  @Input() userName: string = '';
+  @Input() dishName: string = ''; 
+  @Input() timeRange: string = ''; 
 }
