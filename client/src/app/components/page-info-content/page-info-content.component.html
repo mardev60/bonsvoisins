@@ -1,5 +1,4 @@
 <div class="flex justify-between">
-  <!-- Adresse récuperation repas -->
   <div class="flex flex-col space-y-0 leading-tight ml-3">
     <div class="flex items-center">
       <svg
@@ -12,15 +11,14 @@
           d="M256 17.108c-75.73 0-137.122 61.392-137.122 137.122.055 23.25 6.022 46.107 11.58 56.262L256 494.892l119.982-274.244h-.063c11.27-20.324 17.188-43.18 17.202-66.418C393.122 78.5 331.73 17.108 256 17.108zm0 68.56a68.56 68.56 0 0 1 68.56 68.562A68.56 68.56 0 0 1 256 222.79a68.56 68.56 0 0 1-68.56-68.56A68.56 68.56 0 0 1 256 85.67z"
         />
       </svg>
-      <span class="text-sm text-gray-700 font-bold">8 rue Lesiour</span>
+      <span class="text-sm text-gray-700 font-bold">{{ adress }}</span>
     </div>
     <div class="flex items-center">
       <span class="w-4 h-4 mr-1"></span>
-      <span class="text-sm text-gray-600 font-semibold">60160 MONTATAIRE</span>
+      <span class="text-sm text-gray-600 font-semibold">{{ city }}</span>
     </div>
   </div>
 
-  <!-- Bouton envoyer un message -->
   <div *ngIf="showSendMessage" class="mr-1">
     <button
       class="bg-salmon hover:bg-darkSalmon font-bold py-2 px-4 rounded inline-flex items-center"
@@ -44,7 +42,6 @@
   </div>
 </div>
 
-<!-- Box code à 5 chiffres -->
 <div
   *ngIf="showCodeBox"
   class="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-4 mt-8"
@@ -54,17 +51,52 @@
   </h2>
 
   <div class="flex justify-center items-center gap-3 mb-6">
-    <ng-container *ngFor="let digit of codeInputs; let i = index">
-      <input
-        type="text"
-        maxlength="1"
-        [(ngModel)]="codeInputs[i]"
-        (ngModelChange)="moveToNext(i, $event)"
-        [value]="codeInputs[i]"
-        class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
-      />
-    </ng-container>
-
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit1"
+      name="digit1"
+      (input)="updateValue('digit1', $event)"
+      (keydown)="handleKeydown($event, 'digit1')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit2"
+      name="digit2"
+      (input)="updateValue('digit2', $event)"
+      (keydown)="handleKeydown($event, 'digit2')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit3"
+      name="digit3"
+      (input)="updateValue('digit3', $event)"
+      (keydown)="handleKeydown($event, 'digit3')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit4"
+      name="digit4"
+      (input)="updateValue('digit4', $event)"
+      (keydown)="handleKeydown($event, 'digit4')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit5"
+      name="digit5"
+      (input)="updateValue('digit5', $event)"
+      (keydown)="handleKeydown($event, 'digit5')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+  
     <button
       (click)="submitCode()"
       class="w-12 h-12 bg-salmon text-white rounded-lg flex items-center justify-center shadow-md hover:bg-darkSalmon focus:outline-none focus:ring-2"
@@ -85,13 +117,13 @@
       </svg>
     </button>
   </div>
+  
 
   <div class="text-center text-sm font-light md:text-base text-gray-600 mb-5">
     Rentre le code à 5 chiffres pour valider la récupération du repas !
   </div>
 </div>
 
-<!-- Consignes de récuperation (COLLECTEUR)-->
 <div
   *ngIf="showCollectorGuide"
   class="flex flex-col items-center justify-center mt-8 space-y-6 text-center"
@@ -157,7 +189,6 @@
   </ul>
 </div>
 
-<!-- Bouton de support -->
 <div class="text-center mt-8 mb-10">
   <button
     type="button"
