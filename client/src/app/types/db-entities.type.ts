@@ -48,7 +48,7 @@ export interface CommandDetailed {
   image: string;
   date_start: Date;
   date_end: Date;
-  collectedAt: Date | null;
+  collectedat: Date | null;
   collect_status: string;
   user: string;
 }

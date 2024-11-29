@@ -14,6 +14,7 @@ export class CollectionComponent implements OnInit {
   commandsToCollect: any[] = [];
   commandsToCollectComplete: any[] = [];
   groupedCommands: GroupedCommands = {};
+  isLoading = false;
 
   constructor(private commandsService: CommandsService, private router : Router, private store: Store) {}
 
@@ -22,7 +23,9 @@ export class CollectionComponent implements OnInit {
   }
 
   private fetchCommands(): void {
+    this.isLoading = true;
     this.commandsService.getAllUserCommands().subscribe((res) => {
+      this.isLoading = false;
       this.commandsToCollectComplete = res;
       this.commandsToCollect = this.commandsToCollectComplete.map(this.mapCommandData.bind(this));
       this.groupCommandsByDate();
@@ -40,6 +43,7 @@ export class CollectionComponent implements OnInit {
       collect_status: this.getCollectStatus(command),
       created_at: new Date(command.createdAt),
       user: `${command.meal.user.last_name} ${command.meal.user.first_name}`,
+      user_avatar: command.meal.user.avatar,
     };
   }
 

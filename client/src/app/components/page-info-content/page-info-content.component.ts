@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommandsService } from '../../core/services/commands.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-page-info-content',
@@ -17,13 +18,18 @@ export class PageInfoContentComponent {
   @Input() showCodeBox: boolean = false;
   @Input() showCollectorGuide: boolean = false;
   @Input() showAuthorGuide: boolean = false;
-  showCollectedCommand: boolean = false;
+  @Input() showCollectedCommand: boolean = false;
+  @Input() showPersonnalizedMessage: boolean = false;
 
 
   @Input() commandId!: number;
   @Input() userName: string = '';
   @Input() adress: string = '';
   @Input() city: string = '';
+  @Input() personnalizedMessage: string = '';
+
+  isCodeLoading = false;
+  showCodeError = false;
 
   constructor(private commandsService : CommandsService) {}
 
@@ -55,19 +61,21 @@ export class PageInfoContentComponent {
   }
 
   submitCode() {
+    this.showCodeError = false;
     const code = `${this.digit1}${this.digit2}${this.digit3}${this.digit4}${this.digit5}`;
     if (code.length === 5) {
-      this.commandsService.validateCommand(this.commandId, code).subscribe( response => {
-        if(response){
-          this.showCodeBox = false;
-          this.showCollectedCommand = true;
-        } else {
-
-        }
-
+      this.isCodeLoading = true;
+      this.commandsService.validateCommand(this.commandId, code).pipe(
+        catchError(() => {
+          this.showCodeError = true;
+          this.isCodeLoading = false;
+          return of(null);
+        })
+      ).subscribe(() => {
+        this.showCodeBox = false;
+        this.showCollectedCommand = true;
+        this.isCodeLoading = false;
       });
-    } else {
-      alert('Remplissez tous les champs');
     }
   }
 }
