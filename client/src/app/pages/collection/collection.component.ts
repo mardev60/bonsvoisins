@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandsService } from '../../core/services/commands.service';
 import { GroupedCommands } from '../../types/types';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setNavigationData } from '../../store/navigation.reducer';
 
 @Component({
   selector: 'app-collection',
@@ -9,9 +12,10 @@ import { GroupedCommands } from '../../types/types';
 })
 export class CollectionComponent implements OnInit {
   commandsToCollect: any[] = [];
+  commandsToCollectComplete: any[] = [];
   groupedCommands: GroupedCommands = {};
 
-  constructor(private commandsService: CommandsService) {}
+  constructor(private commandsService: CommandsService, private router : Router, private store: Store) {}
 
   ngOnInit(): void {
     this.fetchCommands();
@@ -19,7 +23,8 @@ export class CollectionComponent implements OnInit {
 
   private fetchCommands(): void {
     this.commandsService.getAllUserCommands().subscribe((res) => {
-      this.commandsToCollect = res.map(this.mapCommandData.bind(this));
+      this.commandsToCollectComplete = res;
+      this.commandsToCollect = this.commandsToCollectComplete.map(this.mapCommandData.bind(this));
       this.groupCommandsByDate();
     });
   }
@@ -97,6 +102,10 @@ export class CollectionComponent implements OnInit {
   }
 
   onCommandSelected(command: any): void {
-    console.log('Repas sélectionné:', command);
+    const completeCommand = this.commandsToCollectComplete.find(obj => obj.id === command.id);
+    console.log('cc', completeCommand);
+    let infosPage = {...completeCommand, from: 'collection'};
+    this.store.dispatch(setNavigationData({ data: infosPage }));
+    this.router.navigate(['/dashboard/info']);
   }
 }

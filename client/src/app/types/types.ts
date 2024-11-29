@@ -57,3 +57,11 @@ export interface GroupedCommands {
   [key: string]: CommandDetailed[];
 }
 
+export interface User {
+  avatar: string;
+  first_name: string;
+  id: number;
+  id_auth0: string;
+  last_name: string;
+  phone: string;
+}
