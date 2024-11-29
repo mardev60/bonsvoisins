@@ -39,7 +39,7 @@
     <div class="p-2 md:p-4">
     <h3 class="text-sm md:text-lg md:font-semibold text-gray-800">{{meal.name}}</h3>
     <p class="text-xs md:text-sm text-gray-600 md:mt-2 font-extralight md:font-light">
-        {{ formatMealDateTime(meal.date_start, meal.date_end) }}
+        {{ meal.date_start | formatDateTime: meal.date_end }}
     </p>
     <div class="flex items-center mt-1 md:mt-2">
         <p class="text-xs md:text-sm md:font-semibold text-gray-800 flex items-center">
