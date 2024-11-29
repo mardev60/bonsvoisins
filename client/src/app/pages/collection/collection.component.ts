@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandsService } from '../../core/services/commands.service';
-import { GroupedCommands } from '../../types/types';
+import { GroupedCommands } from '../../types/db-entities.type';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { setNavigationData } from '../../store/navigation.reducer';
