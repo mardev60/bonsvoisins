@@ -28,6 +28,7 @@ import { PageInfoContentComponent } from './components/page-info-content/page-in
 import { PageInfoComponent } from './pages/page-info/page-info.component';
 import { StoreModule } from '@ngrx/store';
 import { navigationReducer } from './store/navigation.reducer';
+import { FormatDateTimePipe } from './utils/pipes/format-date-time.pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { navigationReducer } from './store/navigation.reducer';
     CommandGroupComponent,
     PageInfoHeaderComponent,
     PageInfoContentComponent,
-    PageInfoComponent
+    PageInfoComponent,
+    FormatDateTimePipe
   ],
   imports: [
     BrowserModule,

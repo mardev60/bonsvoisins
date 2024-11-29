@@ -9,7 +9,7 @@ class="flex items-center rounded-lg shadow-lg relative overflow-hidden min-h-ful
         <h4 class="text-gray-800 font-semibold">{{ meal.name }}</h4>
         <p class="text-sm text-gray-600">1 plat proposé • 0 plat récupéré</p>
         <p class="text-xs text-gray-500">
-            {{ formatMealDateTime(meal.date_start, meal.date_end) }}
+            {{ meal.date_start | formatDateTime: meal.date_end }}
         </p>
     </div>
 </div>
