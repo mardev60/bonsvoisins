@@ -43,6 +43,7 @@ model meal {
   description     String?
   id_author       Int
   collect_address String?         @db.VarChar(255)
+  collect_city    String?         @db.VarChar(255)
   collect_code    String?         @db.VarChar(50)
   date_start      DateTime?       @db.Timestamp(6)
   date_end        DateTime?       @db.Timestamp(6)

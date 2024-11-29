@@ -11,4 +11,8 @@ export class CommandsService {
   getAllUserCommands(): Observable<any[]> {
     return this.apiService.get('commands/all-commands');
   }
+
+  validateCommand(id: number, collect_code: string): Observable<any[]> {
+    return this.apiService.put('commands/collect', {id, collect_code});
+  }
 }

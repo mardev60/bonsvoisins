@@ -26,6 +26,8 @@ import { CommandGroupComponent } from './components/command-group/command-group.
 import { PageInfoHeaderComponent } from './components/page-info-header/page-info-header.component';
 import { PageInfoContentComponent } from './components/page-info-content/page-info-content.component';
 import { PageInfoComponent } from './pages/page-info/page-info.component';
+import { StoreModule } from '@ngrx/store';
+import { navigationReducer } from './store/navigation.reducer';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { PageInfoComponent } from './pages/page-info/page-info.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot({ navigationData: navigationReducer }),
   ],
   providers: 
   [
