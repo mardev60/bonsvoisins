@@ -106,7 +106,6 @@ export class CollectionComponent implements OnInit {
 
   onCommandSelected(command: any): void {
     const completeCommand = this.commandsToCollectComplete.find(obj => obj.id === command.id);
-    console.log('cc', completeCommand);
     let infosPage = {...completeCommand, from: 'collection'};
     this.store.dispatch(setNavigationData({ data: infosPage }));
     this.router.navigate(['/dashboard/info']);
