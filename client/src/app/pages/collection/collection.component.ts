@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandsService } from '../../core/services/commands.service';
-import { GroupedCommands } from '../../types/types';
+import { GroupedCommands } from '../../types/db-entities.type';
 
 @Component({
   selector: 'app-collection',
