@@ -48,7 +48,7 @@ export interface CommandDetailed {
   image: string;
   date_start: Date;
   date_end: Date;
-  collectedAt: Date | null;
+  collectedat: Date | null;
   collect_status: string;
   user: string;
 }
@@ -57,3 +57,11 @@ export interface GroupedCommands {
   [key: string]: CommandDetailed[];
 }
 
+export interface User {
+  avatar: string;
+  first_name: string;
+  id: number;
+  id_auth0: string;
+  last_name: string;
+  phone: string;
+}

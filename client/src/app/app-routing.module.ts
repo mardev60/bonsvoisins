@@ -10,6 +10,7 @@ import { ProfilComponent } from './pages/profil/profil.component';
 import { CollectionComponent } from './pages/collection/collection.component';
 import { MealSuggestionComponent } from './pages/meal-suggestion/meal-suggestion.component';
 import { NonFirstTimeGuard } from './core/guards/non-first-time.guard';
+import { PageInfoComponent } from './pages/page-info/page-info.component';
 MealSuggestionComponent
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
     {path: 'collecter', component: CollectionComponent, canActivate: [NonFirstTimeGuard]},
     {path: 'proposer', component: MealSuggestionComponent, canActivate: [NonFirstTimeGuard]},
     {path: 'profil', component: ProfilComponent, canActivate: [NonFirstTimeGuard]},
+    {path: 'info', component: PageInfoComponent, canActivate: [NonFirstTimeGuard]},
   ]},
   {path: '**', redirectTo: ''}
 ];

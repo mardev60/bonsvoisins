@@ -1,0 +1,50 @@
+<div class="max-w-screen bg-gray-50 rounded-lg overflow-hidden">
+  <div class="relative">
+    <button
+      (click)="back()"
+      class="absolute top-4 left-4 flex items-center gap-2 bg-gray-800 text-white px-3 py-2 rounded-full shadow hover:bg-gray-700 transition"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        class="w-5 h-5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 19l-7-7 7-7"
+        />
+      </svg>
+      <span>Retour</span>
+    </button>
+    <img
+      [src]="coverImage ? coverImage : 'assets/images/default_cover.png'"
+      alt="Plat"
+      class="w-full h-56 object-cover rounded-md"
+    />
+    <div
+      class="absolute inset-0 rounded-md pointer-events-none"
+      style="box-shadow: inset 0 -60px 60px rgba(0, 0, 0, 0.5)"
+    ></div>
+
+    <div
+      class="absolute bottom-0 left-4 transform translate-y-1/2 flex items-center"
+    >
+      <img
+        [src]="userImage ? userImage : 'assets/images/default_avatar.jpg'"
+        alt="Utilisateur"
+        class="w-28 h-28 rounded-full object-cover border-2 border-white"
+      />
+      <div class="ml-4 text-white">
+        <h3 class="text-lg font-bold mt-3 text-shadow">{{ userName }}</h3>
+        <p class="text-md font-semibold text-gray-600 mt-3">{{ dishName }}</p>
+        <p class="text-sm font-extralight text-gray-600">{{ timeRange }}</p>
+      </div>
+    </div>
+  </div>
+
+  <span class="p-7 flex flex-col gap-2"></span>
+</div>

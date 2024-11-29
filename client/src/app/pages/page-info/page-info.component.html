@@ -1,0 +1,28 @@
+<div class="min-h-screen">
+  <div class="home-container h-full flex justify-center bg-gray-50">
+    <div class="container content p-2 w-full rounded-lg shadow-xs">
+      <div class="mb-5">
+        <app-page-info-header
+          [coverImage]="coverImage"
+          [userImage]="userImage"
+          [userName]="userName"
+          [dishName]="dishName"
+          [timeRange]="timeRange"
+          (goBack)="back()"
+        ></app-page-info-header>
+      </div>
+      <app-page-info-content
+        [showSendMessage]="displayStates.showSendMessage"
+        [showCodeBox]="displayStates.showCodeBox"
+        [showCollectorGuide]="displayStates.showCollectorGuide"
+        [showCollectedCommand]="displayStates.showCollectedCommand"
+        [showPersonnalizedMessage]="displayStates.showPersonnalizedMessage"
+        [city]="city"
+        [adress]="adress"
+        [userName]="userName"
+        [commandId]="commandId"
+        [personnalizedMessage]="personnalizedMessage"
+      ></app-page-info-content>
+    </div>
+  </div>
+</div>

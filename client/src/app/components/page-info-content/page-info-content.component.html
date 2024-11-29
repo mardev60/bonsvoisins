@@ -1,0 +1,338 @@
+<div class="flex justify-between">
+  <div class="flex flex-col space-y-0 leading-tight ml-3">
+    <div class="flex items-center">
+      <svg
+        class="w-4 h-4 text-gray-700 mr-1"
+        viewBox="0 0 512 512"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M256 17.108c-75.73 0-137.122 61.392-137.122 137.122.055 23.25 6.022 46.107 11.58 56.262L256 494.892l119.982-274.244h-.063c11.27-20.324 17.188-43.18 17.202-66.418C393.122 78.5 331.73 17.108 256 17.108zm0 68.56a68.56 68.56 0 0 1 68.56 68.562A68.56 68.56 0 0 1 256 222.79a68.56 68.56 0 0 1-68.56-68.56A68.56 68.56 0 0 1 256 85.67z"
+        />
+      </svg>
+      <span class="text-sm text-gray-700 font-bold">{{ adress }}</span>
+    </div>
+    <div class="flex items-center">
+      <span class="w-4 h-4 mr-1"></span>
+      <span class="text-sm text-gray-600 font-semibold">{{ city }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="showSendMessage" class="mr-1">
+    <button
+      class="bg-salmon hover:bg-darkSalmon font-bold py-2 px-4 rounded inline-flex items-center"
+    >
+      <svg
+        class="w-4 h-4 mr-2"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M18 9V7.2C18 6.0799 18 5.51984 17.782 5.09202C17.5903 4.71569 17.2843 4.40973 16.908 4.21799C16.4802 4 15.9201 4 14.8 4H7.2C6.0799 4 5.51984 4 5.09202 4.21799C4.71569 4.40973 4.40973 4.71569 4.21799 5.09202C4 5.51984 4 6.0799 4 7.2V18L8 16M20 20L17.8062 18.5374C17.5065 18.3377 17.3567 18.2378 17.1946 18.167C17.0507 18.1042 16.9 18.0586 16.7454 18.031C16.5713 18 16.3912 18 16.0311 18H11.2C10.0799 18 9.51984 18 9.09202 17.782C8.71569 17.5903 8.40973 17.2843 8.21799 16.908C8 16.4802 8 15.9201 8 14.8V12.2C8 11.0799 8 10.5198 8.21799 10.092C8.40973 9.71569 8.71569 9.40973 9.09202 9.21799C9.51984 9 10.0799 9 11.2 9H16.8C17.9201 9 18.4802 9 18.908 9.21799C19.2843 9.40973 19.5903 9.71569 19.782 10.092C20 10.5198 20 11.0799 20 12.2V20Z"
+          stroke="#ffffff"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <span class="text-white font-semibold text-sm">Envoyer un message</span>
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="showCodeBox"
+  class="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-4 mt-8"
+>
+  <h2 class="text-center text-md font-semibold text-salmon mb-6">
+    Code de récupération
+  </h2>
+
+  <div class="flex justify-center items-center gap-3 mb-6">
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit1"
+      name="digit1"
+      (input)="updateValue('digit1', $event)"
+      (keydown)="handleKeydown($event, 'digit1')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit2"
+      name="digit2"
+      (input)="updateValue('digit2', $event)"
+      (keydown)="handleKeydown($event, 'digit2')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit3"
+      name="digit3"
+      (input)="updateValue('digit3', $event)"
+      (keydown)="handleKeydown($event, 'digit3')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit4"
+      name="digit4"
+      (input)="updateValue('digit4', $event)"
+      (keydown)="handleKeydown($event, 'digit4')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+    <input
+      type="text"
+      maxlength="1"
+      [value]="digit5"
+      name="digit5"
+      (input)="updateValue('digit5', $event)"
+      (keydown)="handleKeydown($event, 'digit5')"
+      class="w-12 h-12 text-center text-lg md:text-xl font-bold text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2"
+    />
+  
+    <button
+      (click)="submitCode()"
+      class="w-12 h-12 bg-salmon text-white rounded-lg flex items-center justify-center shadow-md hover:bg-darkSalmon focus:outline-none focus:ring-2"
+    >
+    <span *ngIf="!isCodeLoading">
+      <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 5l7 7-7 7"
+      />
+    </svg>
+    </span>
+
+      <span *ngIf="isCodeLoading" class="flex justify-center items-center">
+        <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+      </svg>
+      </span>
+    </button>
+  </div>
+  
+
+  <div class="text-center text-sm font-light md:text-base text-gray-600 mb-5">
+    Rentre le code à 5 chiffres pour valider la récupération du repas !
+  </div>
+ 
+  <div *ngIf="showCodeError" class="text-center text-sm font-light md:text-base text-red-600 mb-5">
+    Code incorrect !
+  </div>
+
+</div>
+
+<div
+  *ngIf="showCollectedCommand"
+  class="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-4 mt-8 flex flex-col items-center"
+>
+<img src="../../../assets/images/clap_emoji.webp" width="80" class="mb-5 mt-5"/>
+  <div class="text-center text-sm font-medium md:text-base text-gray-600 mb-5">
+    Bravo, vous avez sauvé le repas !
+  </div>
+</div>
+
+<div
+  *ngIf="showCollectorGuide"
+  class="flex flex-col items-center justify-center mt-8 space-y-6 text-center"
+>
+  <h3 class="text-md font-semibold text-gray-800">
+    Prêt à récupérer ton plat ?
+  </h3>
+
+  <ul class="text-sm text-gray-600 space-y-4">
+    <li class="flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-salmon mr-1"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          d="M3 7.2C3 6.07989 3 5.51984 3.21799 5.09202C3.40973 4.71569 3.71569 4.40973 4.09202 4.21799C4.51984 4 5.0799 4 6.2 4H17.8C18.9201 4 19.4802 4 19.908 4.21799C20.2843 4.40973 20.5903 4.71569 20.782 5.09202C21 5.51984 21 6.0799 21 7.2V20L17.6757 18.3378C17.4237 18.2118 17.2977 18.1488 17.1656 18.1044C17.0484 18.065 16.9277 18.0365 16.8052 18.0193C16.6672 18 16.5263 18 16.2446 18H6.2C5.07989 18 4.51984 18 4.09202 17.782C3.71569 17.5903 3.40973 17.2843 3.21799 16.908C3 16.4802 3 15.9201 3 14.8V7.2Z"
+        />
+      </svg>
+      <span>
+        Contacte <span class="font-bold">{{ userName }}</span> pour récupérer ton
+        plat le moment venu.
+      </span>
+    </li>
+
+    <li class="flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-salmon mr-1"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M8.25 7.00151L8.25 6C8.25 3.92893 9.92893 2.25 12 2.25C14.0711 2.25 15.75 3.92893 15.75 6V7L15.75 7.00151C18.4344 7.0136 19.8606 7.1222 20.6606 8.09803C21.5608 9.19607 21.2287 10.8563 20.5646 14.1767L19.9646 17.1767C19.5029 19.4856 19.272 20.6401 18.4425 21.32C17.6131 22 16.4358 22 14.0812 22H9.9188C7.56417 22 6.38686 22 5.55742 21.32C4.72799 20.6401 4.4971 19.4856 4.03532 17.1767L3.43532 14.1767C2.77123 10.8563 2.43919 9.19607 3.33936 8.09803C4.13936 7.12219 5.56562 7.0136 8.25 7.00151ZM9.75 6C9.75 4.75736 10.7574 3.75 12 3.75C13.2426 3.75 14.25 4.75736 14.25 6V7H9.75V6ZM15 11C15.5523 11 16 10.5523 16 10C16 9.44772 15.5523 9 15 9C14.4477 9 14 9.44772 14 10C14 10.5523 14.4477 11 15 11ZM9.99998 10C9.99998 10.5523 9.55226 11 8.99998 11C8.44769 11 7.99998 10.5523 7.99998 10C7.99998 9.44772 8.44769 9 8.99998 9C9.55226 9 9.99998 9.44772 9.99998 10Z"
+        />
+      </svg>
+      <span>Pense également à apporter un tupperware !</span>
+    </li>
+
+    <li class="flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-salmon mr-1"
+        viewBox="0 0 48 48"
+        fill="currentColor"
+      >
+        <g id="Layer_2" data-name="Layer 2">
+          <g id="invisible_box" data-name="invisible box">
+            <rect width="24" height="24" fill="none" />
+          </g>
+          <g id="Layer_7" data-name="Layer 7">
+            <path
+              d="M24,2.1,6,8.1V26.3c0,9.1,13.3,17.2,17,19.4a1.8,1.8,0,0,0,2,0c3.8-2.1,17-10.3,17-19.4V8.1ZM24,38a2,2,0,1,1,2-2A2,2,0,0,1,24,38Zm3.8-11a3.7,3.7,0,0,0-1.6,1.7A1.9,1.9,0,0,1,24.4,30h-.8a2.1,2.1,0,0,1-1.1-2.6,7.1,7.1,0,0,1,3.7-3.9A4.9,4.9,0,0,0,25,14.1a5.3,5.3,0,0,0-4.2,1A5.3,5.3,0,0,0,19,18.9a2,2,0,0,1-4,0,9,9,0,0,1,3.2-6.8,8.7,8.7,0,0,1,7.6-1.9,8.7,8.7,0,0,1,7,6.9A8.9,8.9,0,0,1,27.8,27Z"
+            />
+          </g>
+        </g>
+      </svg>
+      <span> Rentre le code à 5 chiffres pour valider la commande. </span>
+    </li>
+  </ul>
+</div>
+
+<div
+  *ngIf="showAuthorGuide"
+  class="flex flex-col items-center justify-center mt-8 space-y-6 text-center"
+>
+  <h3 class="text-md font-semibold text-gray-800">
+    Prêt à remettre ton plat ?
+  </h3>
+
+  <ul class="text-sm text-gray-600 space-y-4">
+    <li class="flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-salmon mr-1"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          d="M3 7.2C3 6.07989 3 5.51984 3.21799 5.09202C3.40973 4.71569 3.71569 4.40973 4.09202 4.21799C4.51984 4 5.0799 4 6.2 4H17.8C18.9201 4 19.4802 4 19.908 4.21799C20.2843 4.40973 20.5903 4.71569 20.782 5.09202C21 5.51984 21 6.0799 21 7.2V20L17.6757 18.3378C17.4237 18.2118 17.2977 18.1488 17.1656 18.1044C17.0484 18.065 16.9277 18.0365 16.8052 18.0193C16.6672 18 16.5263 18 16.2446 18H6.2C5.07989 18 4.51984 18 4.09202 17.782C3.71569 17.5903 3.40973 17.2843 3.21799 16.908C3 16.4802 3 15.9201 3 14.8V7.2Z"
+        />
+      </svg>
+      <span>
+        Contacte <span class="font-bold">{{ userName }}</span> pour pouvoir lui remettre ton délicieux plat.
+      </span>
+    </li>
+
+    <li class="flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-salmon mr-1"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M8.25 7.00151L8.25 6C8.25 3.92893 9.92893 2.25 12 2.25C14.0711 2.25 15.75 3.92893 15.75 6V7L15.75 7.00151C18.4344 7.0136 19.8606 7.1222 20.6606 8.09803C21.5608 9.19607 21.2287 10.8563 20.5646 14.1767L19.9646 17.1767C19.5029 19.4856 19.272 20.6401 18.4425 21.32C17.6131 22 16.4358 22 14.0812 22H9.9188C7.56417 22 6.38686 22 5.55742 21.32C4.72799 20.6401 4.4971 19.4856 4.03532 17.1767L3.43532 14.1767C2.77123 10.8563 2.43919 9.19607 3.33936 8.09803C4.13936 7.12219 5.56562 7.0136 8.25 7.00151ZM9.75 6C9.75 4.75736 10.7574 3.75 12 3.75C13.2426 3.75 14.25 4.75736 14.25 6V7H9.75V6ZM15 11C15.5523 11 16 10.5523 16 10C16 9.44772 15.5523 9 15 9C14.4477 9 14 9.44772 14 10C14 10.5523 14.4477 11 15 11ZM9.99998 10C9.99998 10.5523 9.55226 11 8.99998 11C8.44769 11 7.99998 10.5523 7.99998 10C7.99998 9.44772 8.44769 9 8.99998 9C9.55226 9 9.99998 9.44772 9.99998 10Z"
+        />
+      </svg>
+      <span>Le collecteur va se présenter avec un conteneur !</span>
+    </li>
+
+    <li class="flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-salmon mr-1"
+        viewBox="0 0 48 48"
+        fill="currentColor"
+      >
+        <g id="Layer_2" data-name="Layer 2">
+          <g id="invisible_box" data-name="invisible box">
+            <rect width="24" height="24" fill="none" />
+          </g>
+          <g id="Layer_7" data-name="Layer 7">
+            <path
+              d="M24,2.1,6,8.1V26.3c0,9.1,13.3,17.2,17,19.4a1.8,1.8,0,0,0,2,0c3.8-2.1,17-10.3,17-19.4V8.1ZM24,38a2,2,0,1,1,2-2A2,2,0,0,1,24,38Zm3.8-11a3.7,3.7,0,0,0-1.6,1.7A1.9,1.9,0,0,1,24.4,30h-.8a2.1,2.1,0,0,1-1.1-2.6,7.1,7.1,0,0,1,3.7-3.9A4.9,4.9,0,0,0,25,14.1a5.3,5.3,0,0,0-4.2,1A5.3,5.3,0,0,0,19,18.9a2,2,0,0,1-4,0,9,9,0,0,1,3.2-6.8,8.7,8.7,0,0,1,7.6-1.9,8.7,8.7,0,0,1,7,6.9A8.9,8.9,0,0,1,27.8,27Z"
+            />
+          </g>
+        </g>
+      </svg>
+      <span> Communique lui le code à 5 chiffres pour valider la commande. </span>
+    </li>
+  </ul>
+</div>
+
+<div
+  *ngIf="showPersonnalizedMessage"
+  class="flex flex-col items-center justify-center mt-8 space-y-6 text-center"
+>
+  <h3 class="text-md font-semibold text-gray-800">
+    {{ personnalizedMessage }}
+  </h3>
+</div>
+
+<div class="text-center mt-8 mb-10">
+  <button
+    type="button"
+    class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2"
+  >
+    <svg
+      aria-hidden="true"
+      class="w-6 h-5 me-2 -ms-1 text-white"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+        stroke="#323232"
+        stroke-width="2"
+      />
+      <path
+        d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
+        stroke="#323232"
+        stroke-width="2"
+      />
+      <path
+        d="M6 6L9.5 9.5"
+        stroke="#323232"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M18 6L14.5 9.5"
+        stroke="#323232"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M18 18L14.5 14.5"
+        stroke="#323232"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M6 18L9.5 14.5"
+        stroke="#323232"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+    Contacte le support
+  </button>
+</div>

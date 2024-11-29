@@ -1,25 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandsService } from '../../core/services/commands.service';
 import { GroupedCommands } from '../../types/db-entities.type';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setNavigationData } from '../../store/navigation.reducer';
 
 @Component({
   selector: 'app-collection',
-  templateUrl: './collection.component.html',
-  styleUrls: ['./collection.component.scss'],
+  templateUrl: './collection.component.html'
 })
 export class CollectionComponent implements OnInit {
   commandsToCollect: any[] = [];
+  commandsToCollectComplete: any[] = [];
   groupedCommands: GroupedCommands = {};
+  isLoading = false;
 
-  constructor(private commandsService: CommandsService) {}
+  constructor(private commandsService: CommandsService, private router : Router, private store: Store) {}
 
   ngOnInit(): void {
     this.fetchCommands();
   }
 
   private fetchCommands(): void {
+    this.isLoading = true;
     this.commandsService.getAllUserCommands().subscribe((res) => {
-      this.commandsToCollect = res.map(this.mapCommandData.bind(this));
+      this.isLoading = false;
+      this.commandsToCollectComplete = res;
+      this.commandsToCollect = this.commandsToCollectComplete.map(this.mapCommandData.bind(this));
       this.groupCommandsByDate();
     });
   }
@@ -35,6 +42,7 @@ export class CollectionComponent implements OnInit {
       collect_status: this.getCollectStatus(command),
       created_at: new Date(command.createdAt),
       user: `${command.meal.user.last_name} ${command.meal.user.first_name}`,
+      user_avatar: command.meal.user.avatar,
     };
   }
 
@@ -97,6 +105,9 @@ export class CollectionComponent implements OnInit {
   }
 
   onCommandSelected(command: any): void {
-    console.log('Repas sélectionné:', command);
+    const completeCommand = this.commandsToCollectComplete.find(obj => obj.id === command.id);
+    let infosPage = {...completeCommand, from: 'collection'};
+    this.store.dispatch(setNavigationData({ data: infosPage }));
+    this.router.navigate(['/dashboard/info']);
   }
 }

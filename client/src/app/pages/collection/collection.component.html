@@ -1,4 +1,7 @@
-<div class="min-h-screen">
+<div *ngIf="isLoading" class="flex items-center justify-center min-h-screen bg-white">
+  <div class="border-t-4 border-salmon border-solid w-20 h-20 rounded-full animate-spin"></div>
+</div>
+<div *ngIf="!isLoading" class="min-h-screen">
   <div class="home-container h-full flex justify-center bg-gray-50 ">
     <div class="container content p-2 w-full rounded-lg shadow-xs">
       <div class="flex justify-center items-center py-3">
