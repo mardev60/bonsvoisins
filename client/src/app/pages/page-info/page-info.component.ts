@@ -6,29 +6,31 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-page-info',
   templateUrl: './page-info.component.html',
-  styleUrl: './page-info.component.scss',
+  styleUrls: ['./page-info.component.scss'],
 })
 export class PageInfoComponent implements OnInit {
-  // Variables pour afficher les informations du repas
-  adress: string = '';
-  city: string = '';
-  coverImage: string = '';
-  userImage: string = '';
-  userName: string = '';
-  dishName: string = '';
-  timeRange: string = '';
-  personnalizedMessage: string = '';
+  // Informations du repas
+  adress = '';
+  city = '';
+  coverImage = '';
+  userImage = '';
+  userName = '';
+  dishName = '';
+  timeRange = '';
+  personnalizedMessage = '';
   commandId!: number;
 
-  // Variables pour afficher les différentes parties de la page
-  showSendMessage: boolean = false;
-  showCodeBox: boolean = false;
-  showCollectorGuide: boolean = false;
-  showAuthorGuide: boolean = false;
-  showCollectedCommand: boolean = false;
-  showPersonnalizedMessage: boolean = false;
+  // État des affichages
+  displayStates = {
+    showSendMessage: false,
+    showCodeBox: false,
+    showCollectorGuide: false,
+    showAuthorGuide: false,
+    showCollectedCommand: false,
+    showPersonnalizedMessage: false,
+  };
 
-  // Variables pour gérer les informations
+  // Données de navigation et repas
   navigationData$!: Observable<string | null>;
   mealInfos: any;
 
@@ -37,96 +39,120 @@ export class PageInfoComponent implements OnInit {
     private store: Store<{ navigationData: string | null }>
   ) {}
 
+  /**
+   * - Récupère les données de navigation depuis le store NgRx.
+   * - Vérifie si des données sont disponibles pour initialiser les informations de la page.
+   * - Redirige l'utilisateur vers le dashboard si aucune donnée n'est trouvée.
+   */
   ngOnInit(): void {
     this.navigationData$ = this.store.select('navigationData');
     this.navigationData$.subscribe((data) => {
       if (data) {
-        console.log(data);
         this.mealInfos = data;
+        this.initPageInfos();
       } else {
         this.router.navigate(['/']);
       }
     });
-    this.initPageInfos();
   }
 
+  /**
+   * Initialise les informations de la page en fonction des données du repas.
+   * - Remplit les informations utilisateur, le plat et les dates de commande.
+   * - Met à jour les états d'affichage en fonction de la disponibilité du repas.
+   * - Gère les cas où le repas est collecté, expiré ou disponible.
+   */
   initPageInfos(): void {
-    if (this.mealInfos.from == 'collection') {
-      this.userName = `${this.mealInfos.meal.user.first_name} ${this.mealInfos.meal.user.last_name}`;
-      this.dishName = this.mealInfos.meal.name;
-      this.coverImage = this.mealInfos.meal.photo_url;
+    if (this.mealInfos.from === 'collection') {
+      const { meal, collectedat, id } = this.mealInfos;
+      const { user, name, photo_url, collect_address, collect_city, date_start, date_end } = meal;
+
+      this.userName = `${user.first_name} ${user.last_name}`;
+      this.dishName = name;
+      this.coverImage = photo_url;
+      this.userImage = user.avatar;
+      this.adress = collect_address;
+      this.city = collect_city;
+      this.commandId = id;
       this.timeRange = this.formatCommandDates(this.mealInfos);
-      this.userImage = this.mealInfos.meal.user.avatar;
-      this.adress = this.mealInfos.meal.collect_address;
-      this.city = this.mealInfos.meal.collect_city;
-      this.commandId = this.mealInfos.id;
 
-      this.showCollectorGuide = true;
+      this.displayStates.showCollectorGuide = true;
 
-      // Si le repas est disponible pour être récupéré
-      if (
-        new Date(this.mealInfos.meal.date_start) < new Date() &&
-        new Date(this.mealInfos.meal.date_end) > new Date() &&
-        !this.mealInfos.collectedat
-      ) {
-        this.showSendMessage = true;
-        this.showCodeBox = true;
-      } else if (this.mealInfos.collectedat) {
-        this.showCodeBox = false;
-        this.showCollectorGuide = false;
-        this.showSendMessage = false;
-        this.showCollectedCommand = true;
-      } else if (new Date(this.mealInfos.meal.date_end) < new Date()) {
-        this.showCollectorGuide = false;
-        this.showPersonnalizedMessage = true;
-        this.timeRange = 'Expiré';
-        this.personnalizedMessage =
-          "Dommage... ! Le repas a expiré, tu n'as pas pu le récupérer à temps. N'hésite pas à consulter les autres repas disponibles sur l'application !";
+      const now = new Date();
+      if (new Date(date_start) < now && new Date(date_end) > now && !collectedat) {
+        this.setDisplayState({ showSendMessage: true, showCodeBox: true });
+      } else if (collectedat) {
+        this.setDisplayState({ showCollectedCommand: true });
+      } else if (new Date(date_end) < now) {
+        this.handleExpiredMeal();
       }
     }
   }
 
+  /**
+   * Formate les dates de commande pour un affichage lisible.
+   * - Si la commande a été collectée, retourne une date au format "jour/mois/année".
+   * - Si la commande est encore disponible, retourne une plage horaire.
+   * 
+   * @param command - Les informations sur la commande à formater.
+   * @returns Une chaîne contenant la date ou la plage horaire.
+   */
   formatCommandDates(command: any): string {
-    if (command.collectedat) {
-      return (
-        'Commande récupérée le ' +
-        new Date(command.collectedat).toLocaleDateString('fr-FR', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        })
-      );
+    const { collectedat, meal } = command;
+    if (collectedat) {
+      return `Commande récupérée le ${this.formatDate(collectedat)}`;
     } else {
-      let date_start = new Date(command.meal.date_start);
-      let date_end = new Date(command.meal.date_end);
-
-      const optionsTime: Intl.DateTimeFormatOptions = {
-        hour: '2-digit',
-        minute: '2-digit',
-      };
-      const optionsDate: Intl.DateTimeFormatOptions = {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      };
-
-      const startTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(
-        date_start
-      );
-      const startDate = new Intl.DateTimeFormat('fr-FR', optionsDate).format(
-        date_start
-      );
-      const endTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(
-        date_end
-      );
-
-      return `À récupérer le ${startDate} entre ${startTime} et ${endTime}`;
+      return this.getTimeRange(meal.date_start, meal.date_end);
     }
   }
 
+  /**
+   * Retourne l'utilisateur à la page précédente en fonction de l'origine des données.
+   * - Ex. Si les données proviennent de la collection, redirige vers le tableau de bord.
+   */
   back(): void {
-    if (this.mealInfos.from == 'collection') {
+    if (this.mealInfos.from === 'collection') {
       this.router.navigate(['/dashboard/collecter']);
     }
+  }
+
+  private setDisplayState(states: Partial<typeof this.displayStates>): void {
+    this.displayStates = { ...this.displayStates, ...states };
+  }
+
+  private handleExpiredMeal(): void {
+    this.setDisplayState({
+      showCollectorGuide: false,
+      showPersonnalizedMessage: true,
+    });
+    this.timeRange = 'Expiré';
+    this.personnalizedMessage =
+      "Dommage... ! Le repas a expiré, tu n'as pas pu le récupérer à temps. N'hésite pas à consulter les autres repas disponibles sur l'application !";
+  }
+
+  private getTimeRange(start: string, end: string): string {
+    const optionsTime: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    const optionsDate: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    };
+
+    const startDate = new Intl.DateTimeFormat('fr-FR', optionsDate).format(new Date(start));
+    const startTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(new Date(start));
+    const endTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(new Date(end));
+
+    return `À récupérer le ${startDate} entre ${startTime} et ${endTime}`;
+  }
+
+  private formatDate(date: string): string {
+    return new Date(date).toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
   }
 }

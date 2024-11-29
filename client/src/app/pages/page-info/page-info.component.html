@@ -12,15 +12,15 @@
         ></app-page-info-header>
       </div>
       <app-page-info-content
-        [showSendMessage]="showSendMessage"
-        [showCodeBox]="showCodeBox"
-        [showCollectorGuide]="showCollectorGuide"
+        [showSendMessage]="displayStates.showSendMessage"
+        [showCodeBox]="displayStates.showCodeBox"
+        [showCollectorGuide]="displayStates.showCollectorGuide"
+        [showCollectedCommand]="displayStates.showCollectedCommand"
+        [showPersonnalizedMessage]="displayStates.showPersonnalizedMessage"
         [city]="city"
         [adress]="adress"
         [userName]="userName"
         [commandId]="commandId"
-        [showCollectedCommand]="showCollectedCommand"
-        [showPersonnalizedMessage]="showPersonnalizedMessage"
         [personnalizedMessage]="personnalizedMessage"
       ></app-page-info-content>
     </div>
