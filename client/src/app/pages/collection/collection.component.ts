@@ -7,8 +7,7 @@ import { setNavigationData } from '../../store/navigation.reducer';
 
 @Component({
   selector: 'app-collection',
-  templateUrl: './collection.component.html',
-  styleUrls: ['./collection.component.scss'],
+  templateUrl: './collection.component.html'
 })
 export class CollectionComponent implements OnInit {
   commandsToCollect: any[] = [];

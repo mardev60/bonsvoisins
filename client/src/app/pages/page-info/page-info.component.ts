@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-info',
-  templateUrl: './page-info.component.html',
-  styleUrls: ['./page-info.component.scss'],
+  templateUrl: './page-info.component.html'
 })
 export class PageInfoComponent implements OnInit {
   // Informations du repas

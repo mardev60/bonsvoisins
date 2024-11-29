@@ -5,7 +5,6 @@ import { catchError, of } from 'rxjs';
 @Component({
   selector: 'app-page-info-content',
   templateUrl: './page-info-content.component.html',
-  styleUrls: ['./page-info-content.component.scss'],
 })
 export class PageInfoContentComponent {
   digit1 = '';
