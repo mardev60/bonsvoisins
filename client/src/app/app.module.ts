@@ -19,6 +19,8 @@ import { MealCardComponent } from './meal-card/meal-card.component';
 import { MealsListComponent } from './components/meals-list/meals-list.component';
 import { CollectionComponent } from './pages/collection/collection.component';
 import { MealSuggestionComponent } from './pages/meal-suggestion/meal-suggestion.component';
+import { MealSuggestionHeaderComponent } from './meal-suggestion-header/meal-suggestion-header.component';
+import { MealMobileCardComponent } from './meal-mobile-card/meal-mobile-card.component';
 import { CommandCardComponent } from './components/command-card/command-card.component';
 import { CommandGroupComponent } from './components/command-group/command-group.component';
 
@@ -37,6 +39,8 @@ import { CommandGroupComponent } from './components/command-group/command-group.
     CollectionComponent,
     MealSuggestionComponent,
     ProfilComponent,
+    MealSuggestionHeaderComponent,
+    MealMobileCardComponent,
     CommandCardComponent,
     CommandGroupComponent
   ],

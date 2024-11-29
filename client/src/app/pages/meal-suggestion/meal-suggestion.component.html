@@ -1,1 +1,56 @@
-<p>meal-suggestion works!</p>
+<div class="bg-gray-50">
+  <div class="container mx-auto min-h-screen">
+
+    <app-meal-suggestion-header/>
+
+    <!-- Historique des plats proposés -->
+    <div class="px-4 md:px-0">
+      <h2 class="text-gray-700 mb-4 md:text-2xl md:font-semibold ">Historique des plats proposés</h2>
+
+      <div class="mb-6">
+        <div *ngFor="let group of getGroupedMeals()">
+          <h3 class="text-center lg:text-left text-sm lg:text-lg lg:font-medium text-gray-600 mb-2">{{ getGroupLabel(group.key) }}</h3>
+
+          <div class="mb-6 md:grid md:grid-cols-3 xl:grid-cols-4 md:gap-2">
+            <div *ngFor="let meal of group.value" >
+
+              <!-- Carte pour les grands écrans -->
+              <app-meal-card
+                [meal]="meal"
+                class="hidden lg:block"
+              ></app-meal-card>
+
+              <!-- Carte pour les petits écrans -->
+              <app-meal-mobile-card
+                [meal]="meal"
+                class="block lg:hidden"
+              ></app-meal-mobile-card>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    <!-- Navigation en bas de page -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white shadow-md">
+      <div class="flex justify-around py-3">
+        <button class="text-gray-600 hover:text-gray-800">
+          <span class="material-icons">explore</span>
+          <p class="text-xs">Découvrir</p>
+        </button>
+        <button class="text-gray-600 hover:text-gray-800">
+          <span class="material-icons">shopping_bag</span>
+          <p class="text-xs">Collecte</p>
+        </button>
+        <button class="text-orange-600">
+          <span class="material-icons">restaurant</span>
+          <p class="text-xs">Proposer</p>
+        </button>
+        <button class="text-gray-600 hover:text-gray-800">
+          <span class="material-icons">person</span>
+          <p class="text-xs">Profil</p>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+  

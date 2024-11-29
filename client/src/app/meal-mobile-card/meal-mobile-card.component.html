@@ -1,0 +1,15 @@
+<div
+class="flex items-center rounded-lg shadow-lg relative overflow-hidden min-h-full border mb-2 md:mb-0 lg:hidden"
+>
+    <div class="meal-picture h-full w-24">
+        <img [src]="meal.photo_url || '../../../assets/meal.png'" alt="plat" class="min-h-full object-cover">
+    </div>
+
+    <div class="flex flex-col justify-center py-2 px-3 w-3/4">
+        <h4 class="text-gray-800 font-semibold">{{ meal.name }}</h4>
+        <p class="text-sm text-gray-600">1 plat proposé • 0 plat récupéré</p>
+        <p class="text-xs text-gray-500">
+            {{ formatMealDateTime(meal.date_start, meal.date_end) }}
+        </p>
+    </div>
+</div>
