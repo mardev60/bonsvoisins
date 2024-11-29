@@ -134,17 +134,11 @@ export class PageInfoComponent implements OnInit {
       hour: '2-digit',
       minute: '2-digit',
     };
-    const optionsDate: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    };
 
-    const startDate = new Intl.DateTimeFormat('fr-FR', optionsDate).format(new Date(start));
     const startTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(new Date(start));
     const endTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(new Date(end));
 
-    return `À récupérer le ${startDate} entre ${startTime} et ${endTime}`;
+    return `À récupérer entre ${startTime} et ${endTime}`;
   }
 
   private formatDate(date: string): string {

@@ -65,16 +65,25 @@ export class PageInfoContentComponent {
     if (code.length === 5) {
       this.isCodeLoading = true;
       this.commandsService.validateCommand(this.commandId, code).pipe(
-        catchError(() => {
+        catchError((error) => {
+          // En cas d'erreur, affichez une erreur et arrêtez le chargement
           this.showCodeError = true;
           this.isCodeLoading = false;
-          return of(null);
+          return of(null); // Continuez avec un flux nul
         })
-      ).subscribe(() => {
-        this.showCodeBox = false;
-        this.showCollectedCommand = true;
+      ).subscribe((response) => {
+        if (response) {
+          // Si la réponse est valide, cachez la boîte et affichez la commande
+          this.showCodeBox = false;
+          this.showCollectedCommand = true;
+        } else {
+          // En cas d'erreur, ne cachez pas la boîte
+          this.showCodeBox = true;
+        }
+        // Arrêtez toujours le chargement après une réponse
         this.isCodeLoading = false;
       });
     }
   }
+  
 }
