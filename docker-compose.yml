@@ -1,0 +1,53 @@
+services:
+  db:
+    image: postgres:13
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bonsvoisins_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  server:
+    build:
+      context: ./server
+    volumes:
+      - ./server:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+    command: >
+      sh -c "npx prisma db push && npm run start:dev"
+    depends_on:
+      - db  
+
+  # client:
+  #   build:
+  #     context: ./client
+  #   volumes:
+  #     - ./client:/app
+  #   ports:
+  #     - "4200:4200" 
+  #   environment:
+  #     - NODE_ENV=development
+    # networks:
+    #   - app-network
+    # command: ["npm", "run", "start"]
+#     depends_on:
+#       - server
+
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
