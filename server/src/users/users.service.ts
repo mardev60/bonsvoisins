@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
+import { filterValidData } from 'src/utils/filter-not-empty-data';
 
 @Injectable()
 export class UsersService {
@@ -49,14 +50,18 @@ export class UsersService {
    * @param data Les nouvelles informations de l'utilisateur (prénom, nom, téléphone)
    * @returns L'utilisateur mis à jour avec ses nouveaux rôles
    */
-  async updateUserInfos(user: { sub: string }, data: { firstName: string, lastName: string, phone: string }): Promise<any> {
+  async updateUserInfos(user: { sub: string }, data: { firstName?: string, lastName?: string, phone?: string, photo?: string | null }): Promise<any> {
+  
+    const updateData = filterValidData({
+      first_name: data.firstName,
+      last_name: data.lastName,
+      phone: data.phone,
+      avatar: data.photo,
+    });
+
     const updatedUser = await this.prisma.user.update({
       where: { id_auth0: user.sub },
-      data: {
-        first_name: data.firstName,
-        last_name: data.lastName,
-        phone: data.phone,
-      },
+      data: updateData, 
       include: { user_role: true },
     });
 
@@ -89,6 +94,17 @@ export class UsersService {
       ...userWithRoles,
       roles: userWithRoles?.user_role?.map(ur => ur.role.name) || [],
     };
+  }
+
+  async getMe(id: number): Promise<any> {
+    const me = await this.prisma.user.findUnique({
+      where: { id: Number(id) },
+      include: {
+        meal: true,
+      },
+    });
+
+    return me;
   }
 
    /**
