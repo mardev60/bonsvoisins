@@ -16,10 +16,11 @@ services:
   server:
     build:
       context: ./server
-    volumes:
-      - ./server:/app
     ports:
       - "3000:3000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules # ignore node_modules
     environment:
       - NODE_ENV=development
     networks:
@@ -27,23 +28,21 @@ services:
     command: >
       sh -c "npx prisma db push && npm run start:dev"
     depends_on:
-      - db  
+      - db
 
-  # client:
-  #   build:
-  #     context: ./client
-  #   volumes:
-  #     - ./client:/app
-  #   ports:
-  #     - "4200:4200" 
-  #   environment:
-  #     - NODE_ENV=development
-    # networks:
-    #   - app-network
-    # command: ["npm", "run", "start"]
-#     depends_on:
-#       - server
-
+  client:
+    build:
+      context: ./client
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./client:/app
+      - /app/node_modules # ignore node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+    command: ["npm", "start"]
 
 networks:
   app-network:
