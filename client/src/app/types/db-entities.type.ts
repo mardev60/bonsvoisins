@@ -1,20 +1,19 @@
 export type Meal = {
-  id: number;
+  id?: number;
   name: string;
   description: string | null;
-  id_author: number;
+  id_author?: number;
   collect_address: string | null;
-  collect_code: string | null;
-  date_start: string | null;
-  date_end: string | null;
+  collect_city: string | null;
+  collect_code?: string | null;
+  date_start: string;
+  date_end: string;
   photo_url: string | null;
-  createdat: string | null;
-  updatedat: string | null;
-  command: Command[];
-  conversation: Conversation[];
-  // user: {
-  //   first_name: string;
-  // }
+  createdat?: string | null;
+  updatedat?: string | null;
+  command?: Command[];
+  conversation?: Conversation[];
+  user: User;
 };
 
 export type Command = {
