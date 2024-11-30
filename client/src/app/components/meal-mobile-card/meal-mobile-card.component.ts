@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Meal } from '../types/db-entities.type';
+import { Meal } from '../../types/db-entities.type';
 
 @Component({
   selector: 'app-meal-mobile-card',
