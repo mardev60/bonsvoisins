@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Meal } from '../../types/db-entities.type';
 import { getDateRanges } from '../../utils/date/get-date-range';
 import { isSameDay } from '../../utils/date/is-same-day';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,15 @@ export class MealsService {
   groupedMeals: { [key: string]: Meal[] } = {};
 
   constructor(private apiService: ApiService) { }
+
+
+  /**
+   * Crée un nouveau repas via une requête à l'API.
+   * @param meal - Le repas à créer.
+   */
+  createMeal(meal: Meal): Observable<Meal> {
+    return this.apiService.post<Meal>('meals', meal);
+  }
 
   /**
    * Récupère les repas regroupés sous forme d'un tableau clé-valeur.

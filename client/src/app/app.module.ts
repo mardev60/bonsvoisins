@@ -29,6 +29,8 @@ import { PageInfoComponent } from './pages/page-info/page-info.component';
 import { StoreModule } from '@ngrx/store';
 import { navigationReducer } from './store/navigation.reducer';
 import { FormatDateTimePipe } from './utils/pipes/format-date-time.pipe';
+import { CreateMealComponent } from './pages/create-meal/create-meal.component';
+import { FormulaireComponent } from './components/formulaire/formulaire.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { FormatDateTimePipe } from './utils/pipes/format-date-time.pipe';
     PageInfoHeaderComponent,
     PageInfoContentComponent,
     PageInfoComponent,
-    FormatDateTimePipe
+    FormatDateTimePipe,
+    CreateMealComponent,
+    FormulaireComponent
   ],
   imports: [
     BrowserModule,
