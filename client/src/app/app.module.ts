@@ -31,6 +31,7 @@ import { navigationReducer } from './store/navigation.reducer';
 import { FormatDateTimePipe } from './utils/pipes/format-date-time.pipe';
 import { CreateMealComponent } from './pages/create-meal/create-meal.component';
 import { FormulaireComponent } from './components/formulaire/formulaire.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { FormulaireComponent } from './components/formulaire/formulaire.componen
     PageInfoComponent,
     FormatDateTimePipe,
     CreateMealComponent,
-    FormulaireComponent
+    FormulaireComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
