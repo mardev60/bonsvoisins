@@ -7,9 +7,9 @@ import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 })
 export class FormulaireComponent implements OnInit {
   @Input() fields: any[] = [];
-  @Output() submit = new EventEmitter<any>();
   @Input() groupValidators: ValidatorFn | null = null;
   @Input() isLoading = false;
+  @Output() submit = new EventEmitter<any>();
 
   form!: FormGroup;
   today: string = new Date().toISOString().slice(0, 16);
@@ -32,7 +32,6 @@ export class FormulaireComponent implements OnInit {
   onSubmit(): void {
     if (this.form.valid) {
       this.submit.emit(this.form.value);
-      console.log('Données du formulaire :', this.form.value);
     }
   }
 }
