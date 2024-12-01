@@ -31,7 +31,6 @@ export class MealSuggestionComponent {
   )};
 
   private mapMealData(meal: any): any {
-    console.log(meal);
     return {
       id: meal.id,
       id_author: meal.id_author,
