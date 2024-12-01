@@ -51,8 +51,8 @@ export class MealsController {
   @Get('active')
   @ApiOperation({ summary: 'Récupérer tous les repas actifs' })
   @ApiResponse({ status: 200, description: 'Renvoie la liste des repas actifs' })
-  async getActiveMeals(): Promise<any> {
-    return await this.mealsService.getActiveMeals();
+  async getActiveMeals(@Req() req): Promise<any> {
+    return await this.mealsService.getActiveMeals(req.user.id);
   }
 
   @UseGuards(RolesGuard)

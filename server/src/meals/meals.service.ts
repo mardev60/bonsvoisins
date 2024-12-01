@@ -45,10 +45,13 @@ export class MealsService {
  * Un repas est considéré comme actif si sa date de début est passée, sa date de fin n'est pas encore atteinte, et la propriété `is_active` est définie sur `true`.
  * @returns Un tableau de repas actifs (`meal[]`).
  */
-  async getActiveMeals(): Promise<meal[]> {
+  async getActiveMeals(userId: number): Promise<meal[]> {
     const now = new Date();
     return await this.prisma.meal.findMany({
       where: {
+        id_author: {
+          not: userId
+        },
         date_start: {
           lte: now,
         },
