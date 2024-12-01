@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-info',
-  templateUrl: './page-info.component.html'
+  templateUrl: './page-info.component.html',
 })
 export class PageInfoComponent implements OnInit {
   // Informations du repas
@@ -65,7 +65,15 @@ export class PageInfoComponent implements OnInit {
   initPageInfos(): void {
     if (this.mealInfos.from === 'collection') {
       const { meal, collectedat, id } = this.mealInfos;
-      const { user, name, photo_url, collect_address, collect_city, date_start, date_end } = meal;
+      const {
+        user,
+        name,
+        photo_url,
+        collect_address,
+        collect_city,
+        date_start,
+        date_end,
+      } = meal;
 
       this.userName = `${user.first_name} ${user.last_name}`;
       this.dishName = name;
@@ -79,7 +87,11 @@ export class PageInfoComponent implements OnInit {
       this.displayStates.showCollectorGuide = true;
 
       const now = new Date();
-      if (new Date(date_start) < now && new Date(date_end) > now && !collectedat) {
+      if (
+        new Date(date_start) < now &&
+        new Date(date_end) > now &&
+        !collectedat
+      ) {
         this.setDisplayState({ showSendMessage: true, showCodeBox: true });
       } else if (collectedat) {
         this.setDisplayState({ showCollectedCommand: true });
@@ -88,9 +100,17 @@ export class PageInfoComponent implements OnInit {
       }
     }
 
-    if(this.mealInfos.from === 'suggestion') {
+    if (this.mealInfos.from === 'suggestion') {
       console.log(this.mealInfos);
-      const { user, name, photo_url, collect_address, collect_city, date_start, date_end } =  this.mealInfos;
+      const {
+        user,
+        name,
+        photo_url,
+        collect_address,
+        collect_city,
+        date_start,
+        date_end,
+      } = this.mealInfos;
 
       this.userName = `${user.first_name} ${user.last_name}`;
       this.dishName = name;
@@ -111,7 +131,7 @@ export class PageInfoComponent implements OnInit {
    * Formate les dates de commande pour un affichage lisible.
    * - Si la commande a été collectée, retourne une date au format "jour/mois/année".
    * - Si la commande est encore disponible, retourne une plage horaire.
-   * 
+   *
    * @param command - Les informations sur la commande à formater.
    * @returns Une chaîne contenant la date ou la plage horaire.
    */
@@ -131,6 +151,9 @@ export class PageInfoComponent implements OnInit {
   back(): void {
     if (this.mealInfos.from === 'collection') {
       this.router.navigate(['/dashboard/collecter']);
+    }
+    if (this.mealInfos.from === 'suggestion') {
+      this.router.navigate(['/dashboard/proposer']);
     }
   }
 
@@ -154,8 +177,12 @@ export class PageInfoComponent implements OnInit {
       minute: '2-digit',
     };
 
-    const startTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(new Date(start));
-    const endTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(new Date(end));
+    const startTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(
+      new Date(start)
+    );
+    const endTime = new Intl.DateTimeFormat('fr-FR', optionsTime).format(
+      new Date(end)
+    );
 
     return `À récupérer entre ${startTime} et ${endTime}`;
   }

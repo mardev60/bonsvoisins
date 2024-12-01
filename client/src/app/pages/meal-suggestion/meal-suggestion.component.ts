@@ -102,6 +102,5 @@ export class MealSuggestionComponent {
     let infoPage = {...foundMeal, from: 'suggestion'};
     this.store.dispatch(setNavigationData({data: infoPage}));
     this.router.navigate(['/dashboard/info']);
-
   }
 }

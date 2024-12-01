@@ -9,6 +9,7 @@
       <ng-container *ngFor="let meal of meals">
         <app-meal-card
           [meal]="meal"
+          (mealSelected)="selectMeal($event)"
         ></app-meal-card>
       </ng-container>
     </div>

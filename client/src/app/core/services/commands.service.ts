@@ -15,4 +15,9 @@ export class CommandsService {
   validateCommand(id: number, collect_code: string): Observable<any[]> {
     return this.apiService.put('commands/collect', {id, collect_code});
   }
+
+  createNewCommand(mealId: number): Observable<any[]> {
+    return this.apiService.post(`commands/${mealId}`, {});
+  }
+
 }
