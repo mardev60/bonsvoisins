@@ -78,15 +78,7 @@ export class MealsService {
    * Récupère les repas de l'utilisateur actuel via une requête à l'API
    * et les regroupe ensuite par date.
    */
-  fetchMealsByUser(): void {
-    this.apiService.get<Meal[]>('meals/my').subscribe({
-      next: (data) => {
-        this.myMeals = data;
-        this.groupMealsByDate();
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des repas:', error);
-      },
-    });
+  fetchMealsByUser(): Observable<Meal[]> {
+    return this.apiService.get<Meal[]>('meals/my');
   }
 }

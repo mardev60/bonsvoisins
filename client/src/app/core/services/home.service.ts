@@ -16,8 +16,8 @@ export class HomeService {
    * Récupère les repas actifs depuis l'API.
    * Renvoie un Observable contenant un tableau de repas.
    */
-  fetchMeals(): Observable<Meal[]> {
-    return this.apiService.get<Meal[]>('meals/active');
+  fetchMeals(): Observable<any> {
+    return this.apiService.get('meals/active');
   }
 
   /**
