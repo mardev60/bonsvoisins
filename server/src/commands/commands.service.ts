@@ -75,7 +75,7 @@ export class CommandsService {
       },
     });
 
-    if (!userId || !commandToCollect || !commandToCollect.meal.is_active) {
+    if (!userId || !commandToCollect) {
       throw new BadRequestException('Les données ne sont pas conformes pour collecter une commande.');
     }
 
