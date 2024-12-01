@@ -32,6 +32,7 @@ export class CommandsService {
     await this.prisma.conversation.create({
       data: {
         id_meal: Number(mealId),
+        date_end: mealToCommand.date_end,
       },
     });
 
