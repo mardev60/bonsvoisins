@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MealsService } from '../../core/services/meals.service';
 import { getGroupLabel } from '../../utils/date/get-group-label';
+import { GroupedMeals } from '../../types/db-entities.type';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { setNavigationData } from '../../store/navigation.reducer';

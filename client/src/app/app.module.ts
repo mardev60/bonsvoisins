@@ -31,6 +31,7 @@ import { navigationReducer } from './store/navigation.reducer';
 import { FormatDateTimePipe } from './utils/pipes/format-date-time.pipe';
 import { CreateMealComponent } from './pages/create-meal/create-meal.component';
 import { FormulaireComponent } from './components/formulaire/formulaire.component';
+import { MealGroupComponent } from './components/meal-group/meal-group.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { UserProfilDescriptionComponent } from './components/user-profil-description/user-profil-description.component';
 import { MealGroupComponent } from './components/meal-group/meal-group.component';
@@ -60,6 +61,7 @@ import { MealGroupComponent } from './components/meal-group/meal-group.component
     FormatDateTimePipe,
     CreateMealComponent,
     FormulaireComponent,
+    MealGroupComponent,
     ChatComponent,
     UserProfilDescriptionComponent,
     MealGroupComponent
