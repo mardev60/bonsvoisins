@@ -1,0 +1,51 @@
+<div class="min-h-screen">
+  <div class="home-container h-full flex justify-center bg-gray-50">
+    <div class="container content p-2 w-full rounded-lg shadow-xs">
+      <div class="mb-5">
+        <app-page-info-header
+          [coverImage]="coverImage"
+          [userImage]="userImage"
+          [userName]="userName"
+          [dishName]="dishName"
+          [timeRange]="timeRange"
+          (goBack)="back()"
+        ></app-page-info-header>
+      </div>
+
+      <div>
+        <div class="flex flex-col h-full bg-gray-50">
+            <div class="flex-1 p-4 overflow-y-auto" id="messages">
+              <div
+                *ngFor="let message of messages"
+                class="mb-2"
+                [class.text-right]="message.id_sender === senderId"
+              >
+                <div
+                  class="inline-block px-3 py-2 rounded-lg"
+                  [class.bg-lightSalmon]="message.id_sender === senderId"
+                  [class.bg-gray-200]="message.id_sender !== senderId"
+                >
+                  {{ message.content }}
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 bg-white flex">
+              <input
+                type="text"
+                [(ngModel)]="newMessage"
+                placeholder="Tapez un message..."
+                class="flex-1 p-2 border rounded-lg mr-2"
+              />
+              <button
+                (click)="sendMessage()"
+                class="bg-salmon text-white px-4 py-2 rounded-lg"
+              >
+                Envoyer
+              </button>
+            </div>
+          </div>          
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,7 @@ export class PageInfoComponent implements OnInit {
   dishName = '';
   timeRange = '';
   personnalizedMessage = '';
+  mealCode = '';
   commandId!: number;
 
   // État des affichages
@@ -85,6 +86,23 @@ export class PageInfoComponent implements OnInit {
       } else if (new Date(date_end) < now) {
         this.handleExpiredMeal();
       }
+    }
+
+    if(this.mealInfos.from === 'suggestion') {
+      const { user, name, photo_url, collect_address, collect_city, date_start, date_end } =  this.mealInfos;
+
+      this.userName = `${user.first_name} ${user.last_name}`;
+      this.dishName = name;
+      this.coverImage = photo_url;
+      this.userImage = user.avatar;
+      this.adress = collect_address;
+      this.city = collect_city;
+      this.timeRange = this.getTimeRange(date_start, date_end);
+      this.mealCode = this.mealInfos.collect_code;
+
+      this.displayStates.showAuthorGuide = true;
+      this.displayStates.showSendMessage = true;
+      this.displayStates.showCodeBox = true;
     }
   }
 
