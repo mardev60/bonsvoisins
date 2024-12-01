@@ -56,6 +56,10 @@ export interface GroupedCommands {
   [key: string]: CommandDetailed[];
 }
 
+export interface GroupedMeals {
+  [key: string]: Meal[];
+}
+
 export interface User {
   avatar: string;
   first_name: string;
