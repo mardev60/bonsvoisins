@@ -1,1 +1,37 @@
-<p>profil works!</p>
+<div class="min-h-screen">
+    <div class="home-container h-full flex justify-center mb-16">
+      <div class="container content p-2 w-full rounded-lg shadow-xs">
+        <div class="mb-5">
+            <app-page-info-header
+                [userName]="userName"
+                [userImage]="userImage"
+                (goBack)="back()"
+            /> 
+            
+            <button *ngIf="!isEditing" (click)="toggleEditForm()" class="mt-4 px-4 py-2 text-blue-600 font-medium hover:text-blue-800 focus:outline-none transition duration-200">
+                Modifier le profil
+            </button>
+
+            <div *ngIf="isEditing" class="mt-4">
+                
+                <button  (click)="toggleEditForm()" class="mt-4 px-4 py-2 text-red-600 font-medium hover:text-red-800 focus:outline-none transition duration-200 text-center container">
+                    Annuler les modifications
+                </button>
+
+                <app-formulaire
+                    [fields]="fields"
+                    [isLoading]="isLoading"
+                    (submit)="onSubmit($event)"
+                ></app-formulaire>
+            </div>
+
+            <div *ngIf="!isEditing" class="flex flex-col items-center flex-grow my-8 mx-4">
+                <app-user-description
+                    [totalMeals]="totalMeals"
+                    [userPhone]="userPhone"
+                ></app-user-description>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
