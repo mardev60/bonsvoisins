@@ -89,6 +89,7 @@ export class PageInfoComponent implements OnInit {
     }
 
     if(this.mealInfos.from === 'suggestion') {
+      console.log(this.mealInfos);
       const { user, name, photo_url, collect_address, collect_city, date_start, date_end } =  this.mealInfos;
 
       this.userName = `${user.first_name} ${user.last_name}`;

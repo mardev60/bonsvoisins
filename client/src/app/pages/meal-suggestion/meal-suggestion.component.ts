@@ -5,7 +5,6 @@ import { GroupedMeals } from '../../types/db-entities.type';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { setNavigationData } from '../../store/navigation.reducer';
-import { GroupedMeals } from '../../types/db-entities.type';
 
 @Component({
   selector: 'app-meal-suggestion',
@@ -99,9 +98,10 @@ export class MealSuggestionComponent {
   }
 
   selectMeal(meal: any) {
-    let infoPage = {...meal, from: 'suggestion'};
+    let foundMeal = this.mealsToSuggestComplete.find((m) => m.id === meal.id);
+    let infoPage = {...foundMeal, from: 'suggestion'};
     this.store.dispatch(setNavigationData({data: infoPage}));
     this.router.navigate(['/dashboard/info']);
-    console.log('Meal selected', meal);
+
   }
 }

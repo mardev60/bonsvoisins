@@ -6,6 +6,7 @@
         <app-meal-card
             *ngFor="let meal of meals"
             [meal]="meal" 
+            (mealSelected)="onCommandClick($event)"
         />
     </div>
   </div>

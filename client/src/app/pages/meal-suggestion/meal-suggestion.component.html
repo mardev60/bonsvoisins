@@ -21,6 +21,7 @@
           *ngFor="let group of getGroupedMealsKeys()"
           [groupName]="group"
           [meals]="groupedMeals[group]"
+          (mealSelected)="selectMeal($event)"
         />
       </div>
   

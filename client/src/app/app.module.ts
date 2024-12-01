@@ -34,7 +34,6 @@ import { FormulaireComponent } from './components/formulaire/formulaire.componen
 import { MealGroupComponent } from './components/meal-group/meal-group.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { UserProfilDescriptionComponent } from './components/user-profil-description/user-profil-description.component';
-import { MealGroupComponent } from './components/meal-group/meal-group.component';
 
 @NgModule({
   declarations: [
