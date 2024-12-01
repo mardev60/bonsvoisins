@@ -8,10 +8,21 @@
         ></app-location-selector>
       </div>
 
-      <app-meals-list
-        [meals]="meals"
-        (mealSelected)="onMealSelected($event)"
-      ></app-meals-list>
+      <div *ngIf="meals.length === 0" class="text-center py-10">
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">
+          Aucun repas n'est disponible pour le moment 🍽️
+        </h2>
+        <p class="text-gray-600 font-light">
+          Revenez plus tard ou proposez un repas à partager avec la communauté !
+        </p>
+      </div>
+
+      <div *ngIf="meals.length > 0">
+        <app-meals-list
+          [meals]="meals"
+          (mealSelected)="onMealSelected($event)"
+        ></app-meals-list>
+      </div>
     </div>
   </div>
 

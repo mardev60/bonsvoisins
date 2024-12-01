@@ -1,20 +1,44 @@
-<div *ngIf="isLoading" class="flex items-center justify-center min-h-screen bg-white">
-  <div class="border-t-4 border-salmon border-solid w-20 h-20 rounded-full animate-spin"></div>
+<div
+  *ngIf="isLoading"
+  class="flex items-center justify-center min-h-screen bg-white"
+>
+  <div
+    class="border-t-4 border-salmon border-solid w-20 h-20 rounded-full animate-spin"
+  ></div>
 </div>
 <div *ngIf="!isLoading" class="min-h-screen">
-  <div class="home-container h-full flex justify-center bg-gray-50 ">
-    <div class="container content p-2 w-full rounded-lg shadow-xs">
-      <div class="flex justify-center items-center py-3">
-        <span class="text-xl text-darkSalmon font-bold">Repas à collecter</span>
-      </div>
+  <div class="min-h-screen bg-gray-50">
+    <div class="home-container h-full flex justify-center">
+      <div class="container content p-2 w-full rounded-lg shadow-xs">
+        <div class="flex justify-center items-center py-3">
+          <span class="text-xl text-darkSalmon font-bold"
+            >Repas à collecter</span
+          >
+        </div>
 
-      <div class="mb-10">
-      <app-command-group
-        *ngFor="let group of getGroupedCommandsKeys()"
-        [groupName]="group"
-        [commands]="groupedCommands[group]"
-        (commandSelected)="onCommandSelected($event)"
-      ></app-command-group>
+        <div
+          *ngIf="getGroupedCommandsKeys().length === 0"
+          class="text-center py-10"
+        >
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">
+            Aucun repas réservé pour le moment 🥡
+          </h2>
+          <p class="text-gray-600 font-light">
+            Vous n'avez pas encore de repas à collecter.
+          </p>
+          <p class="text-gray-600 font-light">
+            Explorez les repas disponibles et réservez-en un !
+          </p>
+        </div>
+
+        <div *ngIf="getGroupedCommandsKeys().length > 0" class="mb-10">
+          <app-command-group
+            *ngFor="let group of getGroupedCommandsKeys()"
+            [groupName]="group"
+            [commands]="groupedCommands[group]"
+            (commandSelected)="onCommandSelected($event)"
+          ></app-command-group>
+        </div>
       </div>
     </div>
   </div>
