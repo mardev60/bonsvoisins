@@ -101,7 +101,6 @@ export class PageInfoComponent implements OnInit {
     }
 
     if (this.mealInfos.from === 'suggestion') {
-      console.log(this.mealInfos);
       const {
         user,
         name,
@@ -120,10 +119,17 @@ export class PageInfoComponent implements OnInit {
       this.city = collect_city;
       this.timeRange = this.getTimeRange(date_start, date_end);
       this.mealCode = this.mealInfos.collect_code;
+      this.displayStates.showAuthorGuide = false;
+      this.displayStates.showPersonnalizedMessage = true;
 
-      this.displayStates.showAuthorGuide = true;
-      this.displayStates.showSendMessage = true;
-      this.displayStates.showCodeBox = true;
+      if(this.mealInfos.command.length > 0) {
+        this.displayStates.showSendMessage = true;
+        this.displayStates.showCodeBox = true;
+        this.personnalizedMessage = "Un utilisateur a commandé ton repas !";
+      } else {
+        this.displayStates.showAuthorGuide = true;
+        this.personnalizedMessage = "Personne n'a encore commandé ton repas. N'hésite pas à partager le code de collecte pour que les autres utilisateurs puissent le récupérer !";
+      }
     }
   }
 
