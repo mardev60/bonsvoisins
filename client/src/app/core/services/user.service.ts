@@ -20,9 +20,17 @@ export class UserService {
   /**
    * Met à jour les informations utilisateur en envoyant une requête POST.
    * @param user : objet contenant les informations utilisateur à mettre à jour
-   * @returns Observable<boolean> - un observable qui émet true si la mise à jour a réussi
+   * @returns Observable<any> 
    */
-    updateUserInfos(user: any): Observable<boolean> {
-      return this.apiService.post('users/update-user-infos', user);
-    }
+  updateUserInfos(user: any): Observable<any> {
+    return this.apiService.patch('users/update-user-infos', user);
+  }
+
+  /**
+   * Récupère les informations de l'utilisateur connecté.
+   * @returns Observable<any> - un observable contenant les informations de l'utilisateur
+   */
+  getMe(): Observable<any> {
+    return this.apiService.get('users/me');
+  }
 }
