@@ -60,7 +60,7 @@ import { UserProfilDescriptionComponent } from './components/user-profil-descrip
     FormatDateTimePipe,
     CreateMealComponent,
     FormulaireComponent,
-    MealGroupComponent
+    MealGroupComponent,
     ChatComponent,
     UserProfilDescriptionComponent
   ],
