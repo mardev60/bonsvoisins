@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Meal } from '../../types/db-entities.type';
 
 @Component({
@@ -9,6 +9,11 @@ import { Meal } from '../../types/db-entities.type';
 export class MealsListComponent {
   @Input() meals: Meal[] = [];
   @Input() title: string = 'Mes derniers repas';
+  @Output() mealSelected = new EventEmitter<Meal>();
+
+  selectMeal(meal: Meal) {
+    this.mealSelected.emit(meal);
+  }
 }
 
 

@@ -60,7 +60,9 @@ export class MealsService {
       orderBy: {
         date_end: 'asc',
       },
-    });
+      include : {user : true}
+    },
+  );
   }
 
 /**

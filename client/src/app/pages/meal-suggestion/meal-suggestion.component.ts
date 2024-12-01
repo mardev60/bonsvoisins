@@ -30,6 +30,5 @@ export class MealSuggestionComponent {
     let infoPage = {...meal, from: 'suggestion'};
     this.store.dispatch(setNavigationData({data: infoPage}));
     this.router.navigate(['/dashboard/info']);
-    console.log('Meal selected', meal);
   }
 }
