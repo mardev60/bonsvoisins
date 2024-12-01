@@ -32,6 +32,8 @@ import { FormatDateTimePipe } from './utils/pipes/format-date-time.pipe';
 import { CreateMealComponent } from './pages/create-meal/create-meal.component';
 import { FormulaireComponent } from './components/formulaire/formulaire.component';
 import { MealGroupComponent } from './components/meal-group/meal-group.component';
+import { ChatComponent } from './pages/chat/chat.component';
+import { UserProfilDescriptionComponent } from './components/user-profil-description/user-profil-description.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { MealGroupComponent } from './components/meal-group/meal-group.component
     CreateMealComponent,
     FormulaireComponent,
     MealGroupComponent
+    ChatComponent,
+    UserProfilDescriptionComponent
   ],
   imports: [
     BrowserModule,

@@ -28,6 +28,7 @@ export class MealsService {
    * @returns { key: string; value: Meal[] }[] - Tableau des repas regroupés avec leurs catégories (e.g., 'today', 'yesterday').
    */
   getGroupedMeals(): { key: string; value: Meal[] }[] {
+    console.log('groupedMeals', this.groupedMeals);
     return Object.entries(this.groupedMeals)
     .filter(([key, value]) => value.length > 0)
       .map(([key, value]) => ({ key, value }));

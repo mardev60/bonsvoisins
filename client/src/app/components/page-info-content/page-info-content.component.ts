@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommandsService } from '../../core/services/commands.service';
 import { catchError, of } from 'rxjs';
 
@@ -6,7 +6,7 @@ import { catchError, of } from 'rxjs';
   selector: 'app-page-info-content',
   templateUrl: './page-info-content.component.html',
 })
-export class PageInfoContentComponent {
+export class PageInfoContentComponent implements OnInit {
   digit1 = '';
   digit2 = '';
   digit3 = '';
@@ -26,11 +26,24 @@ export class PageInfoContentComponent {
   @Input() adress: string = '';
   @Input() city: string = '';
   @Input() personnalizedMessage: string = '';
+  @Input() mealCode: string = '';
 
   isCodeLoading = false;
   showCodeError = false;
 
   constructor(private commandsService : CommandsService) {}
+
+  ngOnInit(): void {
+
+    if(this.mealCode){
+      const digits = this.mealCode.toString().split('').map(Number);
+      this.digit1 = digits[0].toString();
+      this.digit2 = digits[1].toString();
+      this.digit3 = digits[2].toString();
+      this.digit4 = digits[3].toString();
+      this.digit5 = digits[4].toString();
+    }
+  }
 
 
   updateValue(digit: string, event: Event) {
@@ -66,21 +79,17 @@ export class PageInfoContentComponent {
       this.isCodeLoading = true;
       this.commandsService.validateCommand(this.commandId, code).pipe(
         catchError((error) => {
-          // En cas d'erreur, affichez une erreur et arrêtez le chargement
           this.showCodeError = true;
           this.isCodeLoading = false;
-          return of(null); // Continuez avec un flux nul
+          return of(null);
         })
       ).subscribe((response) => {
         if (response) {
-          // Si la réponse est valide, cachez la boîte et affichez la commande
           this.showCodeBox = false;
           this.showCollectedCommand = true;
         } else {
-          // En cas d'erreur, ne cachez pas la boîte
           this.showCodeBox = true;
         }
-        // Arrêtez toujours le chargement après une réponse
         this.isCodeLoading = false;
       });
     }

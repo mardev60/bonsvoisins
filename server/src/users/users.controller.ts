@@ -1,4 +1,4 @@
-import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { AuthorizationGuard } from 'src/guards/authorization.guard';
@@ -19,12 +19,22 @@ export class UsersController {
   }
 
   @UseGuards(AuthorizationGuard)
-  @Post('update-user-infos')
+  @Patch('update-user-infos')
   @ApiOperation({ summary: 'Met à jour les informations de l\'utilisateur' })
   @ApiResponse({ status: 200, description: 'Retourne l\'utilisateur mis à jour avec ses nouveaux rôles.' })
   @ApiResponse({ status: 400, description: 'Données invalides.' })
   @ApiResponse({ status: 401, description: 'Non autorisé' })
   async updateUserInfos(@Req() req): Promise<any> {
     return await this.usersService.updateUserInfos(req.user, req.body);
+  }
+
+  @UseGuards(AuthorizationGuard)
+  @Get('me')
+  @ApiOperation({ summary: 'Récupère les informations de l\'utilisateur connecté' })
+  @ApiResponse({ status: 200, description: 'Retourne les informations de l\'utilisateur.' })
+  @ApiResponse({ status: 401, description: 'Non autorisé' })
+  async getMe(@Req() req): Promise<any> {
+    const me = this.usersService.getMe(req.user.id);
+    return me;
   }
 }

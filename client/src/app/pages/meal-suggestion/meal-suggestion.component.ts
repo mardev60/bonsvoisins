@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { MealsService } from '../../core/services/meals.service';
 import { getGroupLabel } from '../../utils/date/get-group-label';
 import { GroupedMeals } from '../../types/db-entities.type';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setNavigationData } from '../../store/navigation.reducer';
 
 @Component({
   selector: 'app-meal-suggestion',
@@ -14,7 +17,7 @@ export class MealSuggestionComponent {
   groupedMeals: GroupedMeals = {};
   isLoading = false;
 
-  constructor(private mealsService: MealsService) {}
+  constructor(private mealsService: MealsService, private router : Router, private store: Store) {}
 
   ngOnInit(): void {
     this.fetchMeals();
@@ -92,5 +95,12 @@ export class MealSuggestionComponent {
 
   getGroupLabel(key: string): string {
     return getGroupLabel(key);
+  }
+
+  selectMeal(meal: any) {
+    let infoPage = {...meal, from: 'suggestion'};
+    this.store.dispatch(setNavigationData({data: infoPage}));
+    this.router.navigate(['/dashboard/info']);
+    console.log('Meal selected', meal);
   }
 }

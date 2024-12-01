@@ -12,6 +12,7 @@ import { MealSuggestionComponent } from './pages/meal-suggestion/meal-suggestion
 import { NonFirstTimeGuard } from './core/guards/non-first-time.guard';
 import { PageInfoComponent } from './pages/page-info/page-info.component';
 import { CreateMealComponent } from './pages/create-meal/create-meal.component';
+import { ChatComponent } from './pages/chat/chat.component';
 MealSuggestionComponent
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
     {path: 'proposer', component: MealSuggestionComponent, canActivate: [NonFirstTimeGuard]},
     {path: 'profil', component: ProfilComponent, canActivate: [NonFirstTimeGuard]},
     {path: 'info', component: PageInfoComponent, canActivate: [NonFirstTimeGuard]},
-    {path: 'nouveau-repas', component: CreateMealComponent, canActivate: [NonFirstTimeGuard]}
+    {path: 'nouveau-repas', component: CreateMealComponent, canActivate: [NonFirstTimeGuard]},
+    {path: 'chat', component: ChatComponent, canActivate: [NonFirstTimeGuard]}
   ]},
   {path: '**', redirectTo: ''}
 ];
