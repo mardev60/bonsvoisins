@@ -6,6 +6,22 @@ import { takeUntil } from 'rxjs/operators';
 import { ConversationsService } from '../../core/services/conversations.service';
 import { SocketService } from '../../core/services/socket.service';
 
+interface MealInfo {
+  from: 'collection' | 'suggestion';
+  meal?: {
+    id: number;
+    photo_url: string;
+    user: {
+      avatar: string;
+      first_name: string;
+    };
+    name: string;
+    id_author?: number;
+    command?: { id_collector: number }[];
+  };
+  id?: number;
+}
+
 interface Message {
   id_sender: number;
   content: string;
@@ -13,7 +29,7 @@ interface Message {
 
 @Component({
   selector: 'app-chat',
-  templateUrl: './chat.component.html'
+  templateUrl: './chat.component.html',
 })
 export class ChatComponent implements OnInit, OnDestroy {
   navigationData$!: Observable<string | null>;
@@ -30,7 +46,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   receiverId!: number;
   messages: Message[] = [];
 
-  newMessage!: string;
+  newMessage = '';
 
   private unsubscribe$ = new Subject<void>();
 
@@ -43,45 +59,62 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.navigationData$ = this.store.select('navigationData');
-    this.navigationData$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data) => {
-        if (data) {
-          this.mealInfos = data;
-          this.initPage();
-          this.loadConversation();
-        } else {
-          this.router.navigate(['/']);
-        }
-      });
+    this.navigationData$.pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+      if (data) {
+        this.mealInfos = data;
+        this.initPage();
+        this.loadConversation();
+      } else {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
-  initPage(): void {
-    const meal = this.mealInfos.meal;
-    this.coverImage = meal.photo_url;
-    this.userImage = meal.user.avatar;
-    this.userName = meal.user.first_name;
-    this.dishName = meal.name;
-    this.timeRange = `Discutez avec ${this.userName}`;
+  private initPage(): void {
+    const meal = this.mealInfos.meal || this.mealInfos;
+
+    if(this.mealInfos.from === 'collection') {
+      console.log('coll', this.mealInfos);
+      this.coverImage = meal.photo_url;
+      this.userImage = meal.user.avatar;
+      this.userName = meal.user.first_name;
+      this.dishName = meal.name;
+      this.timeRange = `Discutez avec ${this.userName}`;
+    } else if (this.mealInfos.from === 'suggestion'){
+      console.log('sugg', this.mealInfos);
+      this.coverImage = meal.photo_url;
+      this.userImage = meal.command[0].user.avatar;
+      this.userName = meal.command[0].user.first_name;
+      this.dishName = meal.name;
+      this.timeRange = `Discutez avec ${this.userName}`;
+    }
   }
 
-  loadConversation(): void {
+  private loadConversation(): void {
+    const mealId = this.mealInfos.from === 'collection' ? this.mealInfos.meal!.id : this.mealInfos.id!;
     this.conversationsService
-      .getConversation(this.mealInfos.meal.id)
+      .getConversation(mealId)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data) => {
-        this.conversationId = data.id;
-        this.messages = data.message;
+      .subscribe((data) => this.handleConversationData(data));
+  }
 
-        if (this.mealInfos.from === 'collection') {
-          this.receiverId = data.meal.id_author;
-          this.senderId = data.meal.command[0].id_collector;
-        }
+  private handleConversationData(data: any): void {
+    this.conversationId = data.id;
+    this.messages = data.message;
 
-        this.socketService.listenToConversation(this.conversationId).subscribe((message: Message) => {
-          this.messages.push(message);
-        });
-      });
+    const meal = data.meal;
+
+    if(this.mealInfos.from === 'collection') {
+      this.receiverId = meal.id_author;
+      this.senderId = meal.command[0].id_collector;
+    } else {
+      this.receiverId = meal.command[0].id_collector;
+      this.senderId = meal.id_author;
+    }
+
+    this.socketService.listenToConversation(this.conversationId).subscribe((message: Message) => {
+      this.messages.push(message);
+    });
   }
 
   sendMessage(): void {

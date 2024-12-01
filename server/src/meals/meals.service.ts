@@ -96,6 +96,7 @@ export class MealsService {
       },
       include: {
         user: true,
+        command: {include : {user: true}}
       }
     });
   }

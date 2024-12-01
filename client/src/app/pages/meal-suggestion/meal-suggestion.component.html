@@ -16,6 +16,7 @@
 
               <!-- Carte pour les grands écrans -->
               <app-meal-card
+                (mealSelected)="selectMeal($event)"
                 [meal]="meal"
                 class="hidden lg:block"
               ></app-meal-card>
@@ -29,28 +30,6 @@
           </div>
         </div>
       </div>
-  
-    <!-- Navigation en bas de page -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white shadow-md">
-      <div class="flex justify-around py-3">
-        <button class="text-gray-600 hover:text-gray-800">
-          <span class="material-icons">explore</span>
-          <p class="text-xs">Découvrir</p>
-        </button>
-        <button class="text-gray-600 hover:text-gray-800">
-          <span class="material-icons">shopping_bag</span>
-          <p class="text-xs">Collecte</p>
-        </button>
-        <button class="text-orange-600">
-          <span class="material-icons">restaurant</span>
-          <p class="text-xs">Proposer</p>
-        </button>
-        <button class="text-gray-600 hover:text-gray-800">
-          <span class="material-icons">person</span>
-          <p class="text-xs">Profil</p>
-        </button>
-      </div>
-    </div>
   </div>
 </div>
   

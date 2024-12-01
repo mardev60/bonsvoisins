@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Meal } from '../../types/db-entities.type';
 
 @Component({
@@ -7,4 +7,9 @@ import { Meal } from '../../types/db-entities.type';
 })
 export class MealCardComponent {
   @Input() meal!: Meal;
+  @Output() mealSelected = new EventEmitter<Meal>();
+
+  selectMeal(meal: Meal) {
+    this.mealSelected.emit(meal);
+  }
 }
