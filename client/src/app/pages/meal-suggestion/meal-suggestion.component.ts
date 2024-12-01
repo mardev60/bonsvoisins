@@ -48,8 +48,7 @@ export class MealSuggestionComponent {
       name: meal.name,
       photo_url: meal.photo_url,
       updatedat: new Date(meal.updatedat),
-      user: `${meal.user.last_name} ${meal.user.first_name}`,
-      user_avatar: meal.user.avatar,
+      user: meal.user
     };
   }
 
